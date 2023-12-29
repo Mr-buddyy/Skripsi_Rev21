@@ -27,17 +27,18 @@ jobs:
         with:
           files: "composer.json"
       
-      - name: Install Dependencies
-        if: steps.check_files.outputs.files_exists == 'true'
-        run: |
-        php --version
-        composer config "http-basic.nova.laravel.com" "${{secrets.}}" "${{}}"
+- name: Install Dependencies
+  if: steps.check_files.outputs.files_exists == 'true'
+  run: |
+    php --version
+    composer config "http-basic.nova.laravel.com" "${{secrets.NOVA_USER}}" "${{secrets.NOVA_KEY}}"
 
       - name: Run composer install if composer.json exists
         if: steps.check_files.outputs.files_exists == 'true'
         run: composer validate --no-check-publish && composer install --prefer-dist --no-progress
 
       - name: Zip artifact for deployment
+Do you want to install the recommended 'GitHub Actions' extension from GitHub for azure-static-web-apps-happy-sea-0f2670d00.yml?
         run: zip release.zip ./* -r
 
       - name: Upload artifact for deployment job
