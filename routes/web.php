@@ -26,7 +26,7 @@ Route::post('/chat/send', [ChatController::class, 'send']);
 
 //login
 //Route Login
-Route::get('/login', [AuthController::class, 'login'])->middleware('guest');
+Route::get('/login', [AuthController::class, 'login']);
 Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
 Route::post('logout', [AuthController::class, 'logout']);
 //Route Register
