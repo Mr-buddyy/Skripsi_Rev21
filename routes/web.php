@@ -3,11 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChatController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Home;
-use App\Http\Controllers\Mahasiswa;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\SponsorController;
-use App\Http\Controllers\Login;
-use App\Http\Controllers\Register;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PartnershipController;
 
@@ -24,12 +22,12 @@ use App\Http\Controllers\PartnershipController;
 |
 */
 
-include_once "sponsorship/main.php";
-include_once "mahasiswa/main.php";
-// include_once "auth/auth.php";
-include_once "admin/main.php";
-include_once "sponsor/main.php";
-include_once "profile/main.php";
+// include_once "sponsorship/main.php";
+// include_once "mahasiswa/main.php";
+// // include_once "auth/auth.php";
+// include_once "admin/main.php";
+// include_once "sponsor/main.php";
+// include_once "profile/main.php";
 Route::get('/chat', [ChatController::class, 'index']);
 Route::post('/chat/send', [ChatController::class, 'send']);
 
