@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('about')->nullable();
+            $table->string('jumlah_peserta')->nullable();
             $table->string('photo_account')->nullable();
             $table->string('photo_cover')->nullable();
             $table->string('photo_perusahaan')->nullable();
