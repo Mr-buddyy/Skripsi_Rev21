@@ -38,6 +38,13 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
         });
     }
+    protected function mapAuthRoutes()
+    {
+        Route::middleware('web')
+             ->namespace($this->namespace)
+             ->group(base_path('routes/auth/auth.php'));
+    }
+
     protected function mapApiRoutes()
     {
         Route::prefix('{locale}/api')  //----Prefixed route here
