@@ -23,3 +23,12 @@ include_once "sponsor/main.php";
 include_once "profile/main.php";
 Route::get('/chat', [ChatController::class, 'index']);
 Route::post('/chat/send', [ChatController::class, 'send']);
+
+//login
+//Route Login
+Route::get('/login', [AuthController::class, 'login'])->middleware('guest');
+Route::post('/login', [AuthController::class, 'authenticate'])->name('login');
+Route::post('logout', [AuthController::class, 'logout']);
+//Route Register
+Route::get('/register', [AuthController::class, 'register'])->middleware('guest');
+Route::post('/register', [AuthController::class, 'store'])->name('register');
