@@ -38,6 +38,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->group(base_path('routes/web.php'));
         });
     }
+
     protected function mapApiRoutes()
     {
         Route::prefix('{locale}/api')  //----Prefixed route here
