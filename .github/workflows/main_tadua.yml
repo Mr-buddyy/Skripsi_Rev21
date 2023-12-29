@@ -67,10 +67,12 @@ jobs:
       - name: Unzip artifact for deployment
         run: unzip release.zip
 
-      - name: Login to Azure
+      - name: Azure Login
         uses: azure/login@v1
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+          auth-type: SERVICE_PRINCIPAL
+          subscription-id: 431db554-a069-45d6-a9a3-15781e99c226
 
       - name: "Deploy to Azure Web App"
         uses: azure/webapps-deploy@v2
