@@ -17,7 +17,7 @@ use App\Http\Controllers\AuthController;
 
 include_once "sponsorship/main.php";
 include_once "mahasiswa/main.php";
-include_once "auth/auth.php";
+// include_once "auth/auth.php";
 include_once "admin/main.php";
 include_once "sponsor/main.php";
 include_once "profile/main.php";
