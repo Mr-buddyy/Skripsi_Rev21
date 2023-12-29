@@ -21,7 +21,7 @@ include_once "mahasiswa/main.php";
 include_once "admin/main.php";
 include_once "sponsor/main.php";
 include_once "profile/main.php";
-Route::get('/chat', [ChatController::class, 'index']);
+// Route::get('/chat', [ChatController::class, 'index']);
 Route::post('/chat/send', [ChatController::class, 'send']);
 
 //login
