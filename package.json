@@ -3,7 +3,7 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "pnpm install && pnpm run build && composer install"
+        "build": "vite build"
     },
     "devDependencies": {
         "autoprefixer": "^10.4.16",
