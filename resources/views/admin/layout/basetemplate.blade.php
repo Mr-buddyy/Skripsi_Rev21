@@ -26,7 +26,7 @@
                 <h6 class="mb-0 font-bold capitalize">Dashboard</h6>
             </nav>
 
-            <div id="dropdown-wrapper" class="max-h-10 css z-50">
+            <!-- <div id="dropdown-wrapper" class="max-h-10 css z-50">
                 <button onclick="toggleMenu()" class=" block h-10 w-10 rounded-full overflow-hidden border-2 border-gray-600 focus:outline-none focus:border-white">
                     @if(auth()->check() && auth()->user()->profile && auth()->user()->profile->photo_account == null)
                     <svg class="w-full h-full object-cover text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -44,7 +44,7 @@
                         <button type="submit" class="block px-4 py-2 ">Logout</button>
                     </form>
                 </div>
-            </div>
+            </div> -->
 
         </div>
     </nav>

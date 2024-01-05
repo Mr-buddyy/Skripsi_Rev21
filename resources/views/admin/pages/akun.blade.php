@@ -125,7 +125,7 @@
                                             <img src="{{ asset('storage/' . $photo_profile) }} " class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl" alt="user1" />
                                             @endif
                                             <div class="flex flex-col justify-center">
-                                                <h6 class="mb-0 text-sm leading-normal">{{$item['username']}}</h6>
+                                                <h6 class="mb-0 text-sm leading-normal">{{$item['name']}}</h6>
                                                 <p class="mb-0 text-xs leading-tight text-slate-400">{{$item['email']}}</p>
                                             </div>
                                         </div>
@@ -151,13 +151,13 @@
                                                 <h2 class="text-xl font-semibold mb-4">Edit Akun</h2>
 
                                                 <!-- Form Edit -->
-                                                <form method="POST" action="{{ route('update.account', ['id' => $item->id]) }}">
+                                                <form method="POST" action="{{ secure_url('update.account', ['id' => $item->id]) }}">
                                                     @csrf
 
-                                                    <!-- Username -->
+                                                    <!-- name -->
                                                     <div class="mb-4">
-                                                        <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
-                                                        <input type="text" name="username" id="username" value="{{ $item->username }}" class="mt-1 p-2 border rounded-md w-full" required>
+                                                        <label for="name" class="block text-sm font-medium text-gray-700">name</label>
+                                                        <input type="text" name="name" id="name" value="{{ $item->name }}" class="mt-1 p-2 border rounded-md w-full" required>
                                                     </div>
 
                                                     <!-- Email -->
@@ -198,7 +198,7 @@
                                     </td>
                                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                         <!-- Tombol Delete -->
-                                        <form method="POST" action="{{ route('delete.account', ['id' => $item->id]) }}">
+                                        <form method="POST" action="{{ secure_url('delete.account', ['id' => $item->id]) }}">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="text-xs font-semibold leading-tight text-slate-400">Delete</button>

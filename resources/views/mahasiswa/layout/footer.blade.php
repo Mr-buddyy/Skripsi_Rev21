@@ -144,16 +144,23 @@
 
 <!-- end profil -->
 <!-- navbar -->
-<script>
-    document.addEventListener("DOMContentLoaded", function() {
-        const mobileMenuButton = document.querySelector("#mobile-menu-button");
-        const mobileMenu = document.querySelector("#mobile-menu");
 
-        mobileMenuButton.addEventListener("click", function() {
-            mobileMenu.classList.toggle("hidden");
-        });
-    });
+<script>
+    var toggleBtn = document.getElementById('toggle');
+    var collapseMenu = document.getElementById('collapseMenu');
+
+    function handleClick() {
+        if (collapseMenu.style.display === 'block') {
+            collapseMenu.style.display = 'none';
+        } else {
+            collapseMenu.style.display = 'block';
+        }
+    }
+
+    toggleBtn.addEventListener('click', handleClick);
 </script>
+
+
 <!-- end navbar -->
 </body>
 <!-- plugin for charts  -->

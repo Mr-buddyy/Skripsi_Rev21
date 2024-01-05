@@ -42,32 +42,29 @@
                     <h2 class="text-3xl font-bold leading-tight text-black sm:text-4xl  pt-5 sm:pt-11 lg:pt-19">Buat Akun</h2>
                     <p class="mt-2 text-base text-gray-600">Sudah mempunyai akun? <a href="/login" title="" class="font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 hover:underline focus:text-blue-700">Masuk</a></p>
 
-                    <form action="{{route('register')}}" method="post" class="mt-8">
+                    <form action="{{secure_url('register')}}" method="post" class="mt-8">
                         @csrf
+                        @session('error')
+                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 my-5 rounded relative" role="alert">
+                            <span class="font-bold block sm:inline">{{ session('error') }}</span>
+                        </div>
+                        @endsession
                         <div class="space-y-5">
                             <!-- nama lengkap -->
-                            <!-- <div class="mt-4 bg-[#FBFBFB] rounded border-l-2 border-[#204088] pl-4">
-                                <label class="block text-gray-700 text-sm font-bold pt-2 ">Nama Lengkap</label>
-                                <input name="username" class="bg-[#FBFBFB] text-gray-700 focus:outline-none pb-2 w-full appearance-none" type="email" />
-                            </div> -->
                             <div>
                                 <label for="" class="text-base font-medium text-gray-900"> Nama Lengkap </label>
                                 <div class="mt-2.5">
-                                    <input type="text" name="username" id="" placeholder="Masukkan Nama Lengkap" class="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" />
+                                    <input type="text" name="name" id="" placeholder="Masukkan Nama Lengkap" value="{{ old('name') }}" class="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" />
                                 </div>
                             </div>
-                            @error('username')
+                            @error('name')
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                             <!-- Email -->
-                            <!-- <div class="mt-4 bg-[#FBFBFB] rounded border-l-2 border-[#204088] pl-4">
-                                <label class="block text-gray-700 text-sm font-bold pt-2 ">Email Address</label>
-                                <input name="email" class="bg-[#FBFBFB] text-gray-700 focus:outline-none pb-2 w-full appearance-none" type="email" />
-                            </div> -->
                             <div>
                                 <label for="" class="text-base font-medium text-gray-900"> Alamat Email </label>
                                 <div class="mt-2.5">
-                                    <input type="email" name="email" id="" placeholder="Masukkan Email Aktif Anda" class="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" />
+                                    <input type="email" name="email" id="" placeholder="Masukkan Email Aktif Anda" value="{{ old('email') }}" class="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600" />
                                 </div>
                             </div>
                             @error('email')
@@ -88,14 +85,6 @@
                             <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                             <!-- Password -->
-                            <!-- <div class="mt-2 bg-[#FBFBFB] rounded border-l-2 border-[#204088] pl-4">
-                                <label class="block text-gray-700 text-sm font-bold pt-2 ">Role</label>
-                                <select name="semester" id="semester" class="bg-[#FBFBFB] text-gray-700 focus:outline-none pb-2 w-full appearance-none px-2">
-                                    <option value="" disabled selected class="text-gray-500">Pilih Role</option>
-                                    <option value="mahasiswa">Mahasiswa</option>
-                                    <option value="mahasiswa">Sponsor</option>
-                                </select>
-                            </div> -->
                             <div>
                                 <label for="" class="text-base font-medium text-gray-900"> Role </label>
                                 <div class="mt-2.5">
@@ -111,7 +100,7 @@
                                 <input type="checkbox" name="agree" id="agree" class="w-5 h-5 text-blue-600 bg-white border-gray-200 rounded" />
 
                                 <label for="agree" class="ml-3 text-sm font-medium text-gray-500">
-                                    I agree to Postcraft’s <a href="#" title="" class="text-blue-600 hover:text-blue-700 hover:underline">Terms of Service</a> and <a href="#" title="" class="text-blue-600 hover:text-blue-700 hover:underline">Privacy Policy</a>
+                                    Saya menyetujui <a href="#" title="" class="text-blue-600 hover:text-blue-700 hover:underline">Ketentuan Layanan</a> dan <a href="#" title="" class="text-blue-600 hover:text-blue-700 hover:underline">Kebijakan Privasi</a> Sect
                                 </label>
                             </div>
 
@@ -123,16 +112,18 @@
                         </div>
                     </form>
 
-                    <div class="mt-3 space-y-3">
-                        <button type="button" class="relative inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-gray-700 transition-all duration-200 bg-white border-2 border-gray-200 rounded-md hover:bg-gray-100 focus:bg-gray-100 hover:text-black focus:text-black focus:outline-none">
-                            <div class="absolute inset-y-0 left-0 p-4">
-                                <svg class="w-6 h-6 text-rose-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                                    <path d="M20.283 10.356h-8.327v3.451h4.792c-.446 2.193-2.313 3.453-4.792 3.453a5.27 5.27 0 0 1-5.279-5.28 5.27 5.27 0 0 1 5.279-5.279c1.259 0 2.397.447 3.29 1.178l2.6-2.599c-1.584-1.381-3.615-2.233-5.89-2.233a8.908 8.908 0 0 0-8.934 8.934 8.907 8.907 0 0 0 8.934 8.934c4.467 0 8.529-3.249 8.529-8.934 0-.528-.081-1.097-.202-1.625z"></path>
-                                </svg>
-                            </div>
-                            Sign up with Google
-                        </button>
-                    </div>
+                    <a href="{{ url('login/google') }}">
+                        <div class="mt-3 space-y-3">
+                            <button type="button" class="relative inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-gray-700 transition-all duration-200 bg-white border-2 border-gray-200 rounded-md hover:bg-gray-100 focus:bg-gray-100 hover:text-black focus:text-black focus:outline-none">
+                                <div class="absolute inset-y-0 left-0 p-4">
+                                    <svg class="w-6 h-6 text-rose-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                        <path d="M20.283 10.356h-8.327v3.451h4.792c-.446 2.193-2.313 3.453-4.792 3.453a5.27 5.27 0 0 1-5.279-5.28 5.27 5.27 0 0 1 5.279-5.279c1.259 0 2.397.447 3.29 1.178l2.6-2.599c-1.584-1.381-3.615-2.233-5.89-2.233a8.908 8.908 0 0 0-8.934 8.934 8.907 8.907 0 0 0 8.934 8.934c4.467 0 8.529-3.249 8.529-8.934 0-.528-.081-1.097-.202-1.625z"></path>
+                                    </svg>
+                                </div>
+                                Masuk Dengan Google
+                            </button>
+                        </div>
+                    </a>
                 </div>
             </div>
 

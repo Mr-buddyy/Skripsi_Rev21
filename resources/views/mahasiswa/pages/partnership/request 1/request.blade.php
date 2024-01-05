@@ -3,21 +3,21 @@
 @include('mahasiswa.pages.partnership.layout.headertemplate')
 <div class=" my-10 p-8 rounded-3xl shadow-2xl bg-white">
     <div class="flex flex-row justify-between">
-        <h1 class="font-medium text-3xl">{{$detail->username}}</h1>
+        <h1 class="font-medium text-3xl">{{$detail->name}}</h1>
         <div>
             <a class="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"> No Send</a>
         </div>
     </div>
     <p class="text-gray-600 mt-6">{{$detail->profile->deskripsi ?? '-'}}</p>
-    <form action="{{ route('partnership.store', ['id' => $detail->id]) }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ secure_url('partnership.store', ['id' => $detail->id]) }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class=" mt-8 grid lg:grid-cols-2 gap-4">
             @if(Auth::check())
             <input type="hidden" name="sponsor_id" value="{{ $detail->sponsor_id }}">
             <div>
                 <label for="nama" class="text-label-form"> Nama</label>
-                <input type="text" name="nama" id="nama" placeholder="Masukkan Nama Lengkap" class="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded focus:outline-none focus:border-blue-600 caret-blue-600" value="{{ empty($user) ? '' : $user->username}}" />
-                <!-- <input type="text" name="nama" id="nama" class="p-4 bg-gray-100 border border-gray-200 rounded block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" value="{{ empty($user) ? '-' : $user->username}}" /> -->
+                <input type="text" name="nama" id="nama" placeholder="Masukkan Nama Lengkap" class="block w-full p-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded focus:outline-none focus:border-blue-600 caret-blue-600" value="{{ empty($user) ? '' : $user->name}}" />
+                <!-- <input type="text" name="nama" id="nama" class="p-4 bg-gray-100 border border-gray-200 rounded block focus:ring-blue-500 focus:border-blue-500 text-gray-700 w-full" value="{{ empty($user) ? '-' : $user->name}}" /> -->
                 @error('nama')
                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                 @enderror

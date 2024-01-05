@@ -17,12 +17,6 @@ class MahasiswaController extends Controller
     public function __construct()
     {
         $user = Auth::user();
-        // $photos = User::where('id', $data->id)->with('role', 'mahasiswa')->first();
-        // $photos = User::where(function ($query) {
-        //     $query->where('role', 'sponsor');
-        // })->get();
-
-
         $role = "mahasiswa";
         View::share('role', $role);
         View::share('user', $user);
@@ -48,28 +42,19 @@ class MahasiswaController extends Controller
     }
     public function home()
     {
-        // $photos = User::where('role', 'sponsor')->with('partnership')->get();
-
-        $photos = User::with('partnership')->where('role', 'sponsor')->get();
-        // dd($photos);
-        return view("/mahasiswa/pages/home", compact('photos'));
+        $sponsors = User::with('partnership')->where('role', 'sponsor')->get();
+        return view("/mahasiswa/pages/home", compact('sponsors'));
     }
     public function sponsorship()
     {
         // mengambil id yang sedang login
         $userId = Auth::user()->id;
-        // dd($userId);
-        // $profile = Partnership::where('mahasiswa_id', $userId)->get();
-        // dd($profile);
-        // $partnership = User::where('id', $profile->sponsor_id)->first();
-        // dd($partnership);
 
         //mengambil data pada tabel partnership dengan mahasiswa_id adalah id yang sedang login
         $profile = Partnership::where('mahasiswa_id', $userId)->get();
         // Mengambil semua nilai sponsor_id dari $profile
         $sponsorIds = $profile->pluck('sponsor_id');
         // Mengambil semua data User yang sesuai dengan sponsor_ids
-        // $partnership = User::whereIn('id', $sponsorIds)->with('partnership')->get();
         $partnership = Partnership::with('sponsor')->whereHas('sponsor')->where('mahasiswa_id', auth()->user()->id)->get();
         $role = "mahasiswa";
         return view("mahasiswa.pages.sponsorship", compact('role', 'partnership'));
@@ -78,14 +63,13 @@ class MahasiswaController extends Controller
     {
         $loggedInUserId = Auth::id();
 
-        $photos = User::where('role', 'sponsor')
+        $sponsors = User::where('role', 'sponsor')
             ->whereDoesntHave('partnership', function ($query) use ($loggedInUserId) {
                 $query->where('mahasiswa_id', $loggedInUserId);
             })
-            ->get();        // dd($photos);
-        // dd($photos->profile->jumlah_peserta);
+            ->get();
         $role = "mahasiswa";
-        return view("mahasiswa.pages.partnership.sponsor.sponsor", compact('role', 'photos'));
+        return view("mahasiswa.pages.partnership.sponsor.sponsor", compact('role', 'sponsors'));
     }
 
     public function about()

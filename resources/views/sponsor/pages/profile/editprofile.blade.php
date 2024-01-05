@@ -1,17 +1,17 @@
 @include('sponsor.layout.header')
 @include('sponsor.layout.navbarside')
-<form id="form" action="{{route('editprofile.store')}}" method="POST" class="ease-soft-in-out xl:ml-68.5 relative h-full transition-all duration-200" enctype="multipart/form-data">
+<form id="form" action="{{secure_url('editprofile.store')}}" method="POST" class="ease-soft-in-out xl:ml-68.5 relative h-full transition-all duration-200" enctype="multipart/form-data">
     @csrf
     <div class="dark:shadow-md dark:shadow-white bg-white my-4 p-10 mx-6 transition-all shadow-none duration-250 ease-soft-in rounded-2xl lg:flex-nowrap lg:justify-start" navbar-main navbar-scroll="true">
         <div class=" border-b border-gray-900/10 pb-12">
             <h2 class="text-base font-semibold leading-7 text-gray-900">Edit Profil</h2>
             <!-- <p class="mt-1 text-sm leading-6 text-gray-600">This information will be displayed publicly so be careful what you share.</p> -->
-            <!-- username -->
+            <!-- name -->
             <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
                 <div class="sm:col-span-3">
-                    <label for="username" class="text-label-form">Username</label>
+                    <label for="name" class="text-label-form">Username</label>
                     <div class="mt-2.5 relative ">
-                        <input type=" text" name="username" id="username" autocomplete="username" class="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-blue-600 caret-blue-600" placeholder="Masukkan Username">
+                        <input type=" text" name="name" id="name" autocomplete="name" class="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-blue-600 caret-blue-600" placeholder="Masukkan Username">
                     </div>
                 </div>
 
@@ -97,7 +97,7 @@
                 <div class="sm:col-span-3">
                     <label for="last-name" class="text-label-form">Nomer Telepon</label>
                     <div class="mt-2">
-                        <input type="text" name="telpon" id="last-name" autocomplete="family-name" class="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-blue-600 caret-blue-600">
+                        <input type="text" name="telpon" id="last-name" pattern="[0-9]{11,13}" autocomplete="family-name" class="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-blue-600 caret-blue-600">
                         @error('telpon')
                         <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                         @enderror

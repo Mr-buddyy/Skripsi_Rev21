@@ -126,13 +126,13 @@
                 <div class="px-6 py-12 sm:p-12">
                     <h3 class="text-3xl font-semibold text-center text-gray-900">Kirim Kami Pesan</h3>
 
-                    <form action="{{ route('message') }}" method="POST" class="mt-14">
+                    <form action="{{ secure_url('message') }}" method="POST" class="mt-14">
                         @csrf
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4 px-10">
                             <div>
                                 <label for="" class="text-base font-medium text-gray-900 "> Nama Lengkap </label>
                                 <div class="mt-2.5 relative ">
-                                    <input type="text" name="nama" id="" value="{{ auth()->user()->username }}" class="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-blue-600 caret-blue-600" />
+                                    <input type="text" name="nama" id="" value="{{ auth()->user()->name }}" class="block w-full px-4 py-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-xl focus:outline-none focus:border-blue-600 caret-blue-600" />
                                 </div>
                                 @error('nama')
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>

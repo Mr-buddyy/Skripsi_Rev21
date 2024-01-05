@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    @apply font-body bg-gray-50 dark:bg-[#06052F] dark:text-white text-[#333333];
+}
+@layer components {
+    /* untuk warna bg */
+    .bg-color-system {
+        @apply bg-gradient-to-r from-fuchsia-600 to-blue-600;
+    }
+    /* untuk tombol utama */
+    .btn-primary {
+        @apply inline-flex items-center justify-center px-5 py-4 mt-8 text-base font-semibold text-white transition-all duration-200 rounded-md hover:opacity-90 focus:opacity-90 lg:mt-auto bg-gradient-to-r from-fuchsia-600 to-blue-600;
+    }
+
+    .text-child {
+        @apply max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-600;
+    }
+    .text-hero {
+        @apply text-4xl font-bold text-black sm:text-6xl lg:text-7xl;
+    }
+    .text-header {
+        @apply text-3xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl;
+    }
+    .text-header-footer {
+        @apply text-base font-semibold text-gray-900 dark:text-white;
+    }
+    .text-child-footer {
+        @apply flex text-sm text-gray-800 transition-all duration-200 hover:text-orange-600 focus:text-orange-600;
+    }
+    .card {
+        @apply bg-white dark:bg-[#071440] rounded-tl-3xl shadow-lg dark:shadow-violet-800;
+    }
+    .card-contact {
+        @apply block rounded-3xl bg-white dark:bg-[#071440] shadow-[0_2px_15px_-3px_rgba(0,0,0,0.07),0_10px_20px_-2px_rgba(0,0,0,0.04)] dark:shadow-white backdrop-blur-[30px];
+        /* @apply h-[638px] rounded-xl shadow-xl dark:shadow-2xl dark:bg-[#071440] bg-white dark:shadow-white; */
+    }
+    .hover-shadow {
+        @apply transition-all duration-200 shadow-md hover:shadow-xl;
+    }
+    /* untuk text label form */
+    .text-label-form {
+        @apply text-base font-medium text-gray-900;
+    }
+}
+
+@media (max-width: 768px) {
+    .flex {
+        display: block;
+    }
+
+    .hidden {
+        display: block !important;
+    }
+
+    .md:flex {
+        display: none;
+    }
+
+    .md:order-2 {
+        order: 1;
+    }
+
+    .md:order-1 {
+        order: 2;
+    }
+}

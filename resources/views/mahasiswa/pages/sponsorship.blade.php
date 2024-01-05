@@ -21,7 +21,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($partnership as $partnership)
+                            @forelse($partnership as $partnership)
                             <tr>
                                 <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                     <div class="flex px-2 py-1">
@@ -29,7 +29,7 @@
                                             <img src="{{ asset('storage/' . $partnership->user->profile->photo_perusahaan) }}" class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl" alt="user1" />
                                         </div>
                                         <div class="flex flex-col justify-center">
-                                            <h6 class="mb-0 text-sm leading-normal">{{ $partnership->user->username ?? '-' }}</h6>
+                                            <h6 class="mb-0 text-sm leading-normal">{{ $partnership->user->name ?? '-' }}</h6>
                                             <p class="mb-0 text-xs leading-tight text-slate-400">{{ $partnership->user->email ?? '-' }}</p>
                                         </div>
                                     </div>
@@ -45,11 +45,16 @@
                                     <span class="text-xs font-semibold leading-tight text-slate-400">{{$partnership->created_at}}</span>
                                 </td>
                                 <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-                                    <a href="{{route('partnership.mahasiswa-page', ['id' => $partnership->sponsor_id])}}" class="text-xs font-semibold leading-tight text-slate-400"> Detail </a>
+                                    <a href="{{secure_url('partnership.mahasiswa-page', ['id' => $partnership->sponsor_id])}}" class="text-xs font-semibold leading-tight text-slate-400"> Detail </a>
                                 </td>
                             </tr>
-                            @endforeach
-
+                            @empty
+                            <div class="px-4 py-3 my-5 rounded" role="alert">
+                                <span class="font-bold  sm:inline">Anda Belum menjalin kerja sama</span>
+                                <br>
+                                <a href="/sponsor" class="text-blue-600 hover:text-blue-700 hover:underline">Cari Sponsor</a>
+                            </div>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
