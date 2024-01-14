@@ -1,16 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Home;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\Sponsor;
-use App\Http\Controllers\Login;
-use App\Http\Controllers\Register;
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\PartnershipController;
-use GuzzleHttp\Middleware;
-use Illuminate\Auth\Events\Logout;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 // Route Mahasiswa
 Route::group(['middleware' => ['mahasiswa']], function () {

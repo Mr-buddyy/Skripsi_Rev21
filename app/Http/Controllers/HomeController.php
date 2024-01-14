@@ -54,8 +54,8 @@ class HomeController extends Controller
     {
         $user =  User::where('id', $id)->first();
         $request->validate([
-            'username' => 'nullable',
-            'email' => 'nullable|email|unique:accounts,email',
+            'name' => 'nullable',
+            'email' => 'nullable|email',
             'role' => 'nullable',
             'password' => 'nullable|min:8|confirmed',
         ]);
@@ -63,7 +63,7 @@ class HomeController extends Controller
         $atributAsli = $user->getAttributes();
 
         $user->update([
-            'username' => $request->username,
+            'name' => $request->name,
             'email' => $request->email,
             'role' => $request->role,
             'password' => $request->filled('password') ? bcrypt($request->password) : $user->password,

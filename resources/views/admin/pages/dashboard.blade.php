@@ -34,7 +34,8 @@
                 <div class="flex-auto p-4">
                     <div class="flex flex-row -mx-3">
                         <div class="flex-none w-2/3 max-w-full px-3">
-                            <div>                                <h5 class="mb-0 font-bold">
+                            <div>
+                                <h5 class="mb-0 font-bold">
                                     {{$user->count()}}
                                 </h5>
                                 <p class="mb-0 font-sans text-sm font-semibold leading-normal">Total Users</p>

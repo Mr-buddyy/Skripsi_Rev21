@@ -10,7 +10,7 @@ body {
 @layer components {
     /* untuk warna bg */
     .bg-color-system {
-        @apply bg-gradient-to-r from-fuchsia-600 to-blue-600;
+        @apply bg-gradient-to-r from-fuchsia-600 to-blue-600 hover:bg-gradient-to-r hover:from-blue-600 hover:to-fuchsia-600;
     }
     /* untuk tombol utama */
     .btn-primary {

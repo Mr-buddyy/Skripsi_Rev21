@@ -27,7 +27,7 @@ class ProfileController  extends Controller
             'photo_account' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'photo_cover' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'photo_perusahaan' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'telpon' => 'nullable|integer',
+            'telpon' => 'nullable|string',
         ]);
         $data = ([
             'about' => $request->input('about') ?? ($user->profile ? $user->profile->about : null),
@@ -35,8 +35,9 @@ class ProfileController  extends Controller
             'nama_universitas' => $request->input('nama_universitas') ?? ($user->profile ? $user->profile->nama_universitas : null),
             'telpon' => $request->input('telpon') ?? ($user->profile ? $user->profile->telpon : null),
             'alamat' => $request->input('alamat') ?? ($user->profile ? $user->profile->alamat : null),
-            'username' => $request->input('username') ?? $user->username,
+            'name' => $request->input('name') ?? $user->name,
             'email' => $request->input('email') ?? $user->email,
+            'nama_perusahaan' => $request->input('nama_perusahaan') ?? ($user->profile ? $user->profile->nama_perusahaan : null),
             'jumlah_peserta' => $request->input('jumlah_peserta') ?? ($user->profile ? $user->profile->jumlah_peserta : null),
         ]);
         // Periksa dan simpan gambar foto akun jika ada
@@ -59,7 +60,7 @@ class ProfileController  extends Controller
         // Cek apakah profil pengguna sudah ada
         if ($user->profile) {
             $userData = [
-                'username' => $request->input('username') ?? $user->username,
+                'name' => $request->input('name') ?? $user->name,
                 'email' => $request->input('email') ?? $user->email,
             ];
             $user->update($userData);
@@ -67,9 +68,9 @@ class ProfileController  extends Controller
             return redirect()->route('profile.page')->with('success', 'Profil berhasil diperbarui');
         } else {
             $user->profile()->create($data);
-            return redirect()->back()->with('success', 'Profil berhasil diperbarui');
+            return redirect()->route('profile.page')->with('success', 'Profil berhasil diperbarui');
         }
-        return redirect()->back()->with('error', 'Gagal menyimpan perubahan pada profil');
+        return redirect()->route('profile.page')->with('error', 'Gagal menyimpan perubahan pada profil');
         // $page = "profile";
         // $role = "profile";
         // $atributAsli = $user->getAttributes();
@@ -91,7 +92,7 @@ class ProfileController  extends Controller
             return view("admin.pages.profile.editprofile", compact('page'));
         } else if (Auth::check() && $this->user->role == 'sponsor') {
             $page = "profile";
-            return view("sponsor.pages.profile.editprofile", compact('page'));
+            return view("sponsor.pages.profile.editprofile", compact('page', 'user'));
         } else if (Auth::check() && $this->user->role == 'mahasiswa') {
             $role = "mahasiswa";
             return view("mahasiswa.pages.profile.editprofile", compact('role'));
@@ -100,6 +101,7 @@ class ProfileController  extends Controller
     public function Profile(Request $request)
     {
         $user = Auth::user();
+        // dd(auth()->user()->profile->photo_cover);
         if (Auth::check() && $this->user->role == 'admin') {
             $page = "profil";
             $role = "profil";

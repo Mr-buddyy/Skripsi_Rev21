@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 
 class MahasiswaController extends Controller
@@ -17,12 +18,6 @@ class MahasiswaController extends Controller
     public function __construct()
     {
         $user = Auth::user();
-        // $photos = User::where('id', $data->id)->with('role', 'mahasiswa')->first();
-        // $photos = User::where(function ($query) {
-        //     $query->where('role', 'sponsor');
-        // })->get();
-
-
         $role = "mahasiswa";
         View::share('role', $role);
         View::share('user', $user);
@@ -48,44 +43,69 @@ class MahasiswaController extends Controller
     }
     public function home()
     {
-        // $photos = User::where('role', 'sponsor')->with('partnership')->get();
+        $loggedInUserId = Auth::id();
 
-        $photos = User::with('partnership')->where('role', 'sponsor')->get();
-        // dd($photos);
-        return view("/mahasiswa/pages/home", compact('photos'));
+        $sponsors = User::where('role', 'sponsor')
+            ->whereDoesntHave('partnership', function ($query) use ($loggedInUserId) {
+                $query->where('mahasiswa_id', $loggedInUserId);
+            })
+            ->get();
+        // dd($sponsors);
+        return view("mahasiswa.pages.home", compact('sponsors'));
+    }
+    public function downloadLPJ()
+    {
+        $partnerships = Partnership::with('sponsor')->whereHas('sponsor')->where('mahasiswa_id', auth()->user()->id)->get();
+        foreach ($partnerships as $partnership) {
+            $pdfFilename = $partnership->mou;
+
+            // You may want to add additional checks or validations here
+
+            $filePath = '/' . str_replace(['/', '\\'], '/', $pdfFilename);
+
+            if (Storage::disk('local')->exists($filePath)) {
+                $pdfContents = Storage::disk('local')->get($filePath);
+
+                return response($pdfContents)
+                    ->header('Content-Type', 'application/pdf')
+                    ->header('Content-Disposition', 'attachment; filename=' . $pdfFilename);
+            } else {
+                // File PDF tidak ditemukan, berikan respons kesalahan
+                return abort(404);
+            }
+        }
     }
     public function sponsorship()
     {
         // mengambil id yang sedang login
         $userId = Auth::user()->id;
-        // dd($userId);
-        // $profile = Partnership::where('mahasiswa_id', $userId)->get();
-        // dd($profile);
-        // $partnership = User::where('id', $profile->sponsor_id)->first();
-        // dd($partnership);
 
         //mengambil data pada tabel partnership dengan mahasiswa_id adalah id yang sedang login
         $profile = Partnership::where('mahasiswa_id', $userId)->get();
         // Mengambil semua nilai sponsor_id dari $profile
         $sponsorIds = $profile->pluck('sponsor_id');
         // Mengambil semua data User yang sesuai dengan sponsor_ids
-        // $partnership = User::whereIn('id', $sponsorIds)->with('partnership')->get();
-        $partnership = Partnership::with('sponsor')->whereHas('sponsor')->where('mahasiswa_id', auth()->user()->id)->get();
+        $partnerships = Partnership::with('sponsor')->whereHas('sponsor')->where('mahasiswa_id', auth()->user()->id)->get();
+
+        // dd($partnership->user->profile);
         $role = "mahasiswa";
-        return view("mahasiswa.pages.sponsorship", compact('role', 'partnership'));
+
+
+        return view("mahasiswa.pages.sponsorship", compact('role', 'partnerships'));
     }
     public function sponsor()
     {
         $loggedInUserId = Auth::id();
 
-        $photos = User::where('role', 'sponsor')
+        $sponsors = User::where('role', 'sponsor')
             ->whereDoesntHave('partnership', function ($query) use ($loggedInUserId) {
                 $query->where('mahasiswa_id', $loggedInUserId);
             })
-            ->get();        // dd($photos);
-        // dd($photos->profile->jumlah_peserta);
+            ->get();
+
+        // dd($sponsors->profile->deskripsi == null);
         $role = "mahasiswa";
-        return view("mahasiswa.pages.partnership.sponsor.sponsor", compact('role', 'photos'));
+        return view("mahasiswa.pages.partnership.sponsor.sponsor", compact('role', 'sponsors'));
     }
 
     public function about()

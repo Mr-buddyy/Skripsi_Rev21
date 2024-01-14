@@ -1,6 +1,6 @@
 @extends('mahasiswa.layout.basetemplate')
 @section('content')
-<div class="w-full h-full sm:py-16 lg:py-24">
+<div class="w-full h-full py-28">
     <!-- Common hero -->
     <section class="page-hero">
         <div class="container">
@@ -17,78 +17,15 @@
                     </a>
                 </div>
             </div>
-            <!-- <div class="counter mt-16 max-w-[1240px] mx-auto px-4">
-                <div class="flex flex-col lg:flex-row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-5 justify-between">
-                    <div class="border-border p-10 text-center sm:w-1/2 lg:w-1/4 lg:border-r">
-                        <h2>
-                            <span class="count">25M</span> <span class="text-[#A3A1FB]">+</span>
-                        </h2>
-                        <p>Customers</p>
-                    </div>
-                    <div class="border-border p-10 text-center sm:w-1/2 lg:w-1/4 lg:border-r">
-                        <h2>
-                            <span class="count">440M</span> <span class="text-[#5EE2A0]">+</span>
-                        </h2>
-                        <p>Products sold</p>
-                    </div>
-                    <div class="border-border p-10 text-center sm:w-1/2 lg:w-1/4 lg:border-r">
-                        <h2>
-                            <span class="count">50K</span> <span class="text-primary">+</span>
-                        </h2>
-                        <p>Online stores</p>
-                    </div>
-                    <div class="border-border p-10 text-center sm:w-1/2 lg:w-1/4">
-                        <h2>
-                            <span class="count">20K</span> <span class="text-[#FEC163]">+</span>
-                        </h2>
-                        <p>Transactions</p>
-                    </div>
-                </div>
-            </div> -->
-
         </div>
     </section>
     <!-- end Common hero -->
-
-    <!-- Works -->
-    <!-- <section id="about2">
-        <div class="w-full flex flex-col gap-10 ">
-            <div class="text-center text-header"> Apa yang bisa website <span><br>ini lakukan?</span>
-            </div>
-            <div class="flex flex-row justify-center gap-5 font-semibold w-full max-w-[1240px] mx-auto ">
-                <div class="flex flex-col max-w-[300px] gap-2 dark:bg-[#071440] p-10 rounded-tl-3xl shadow-2xl">
-                    <div class="w-10 h-10">
-                        <svg viewBox="0 0 20 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path class="dark:fill-[#06CBE2]" d="M10.1 18C9.81667 18 9.57933 17.904 9.388 17.712C9.19667 17.52 9.10067 17.2827 9.1 17C9.1 16.8833 9.125 16.7623 9.175 16.637C9.225 16.5117 9.3 16.3993 9.4 16.3L14.025 11.675L13.3 10.95L8.7 15.575C8.6 15.675 8.49167 15.75 8.375 15.8C8.25833 15.85 8.13333 15.875 8 15.875C7.71667 15.875 7.479 15.7793 7.287 15.588C7.095 15.3967 6.99933 15.159 7 14.875C7 14.7083 7.025 14.5707 7.075 14.462C7.125 14.3533 7.19167 14.2577 7.275 14.175L11.9 9.55L11.2 8.85001L6.575 13.45C6.475 13.55 6.36667 13.625 6.25 13.675C6.13333 13.725 6 13.75 5.85 13.75C5.58333 13.75 5.35 13.65 5.15 13.45C4.95 13.25 4.85 13.0167 4.85 12.75C4.85 12.6167 4.875 12.4917 4.925 12.375C4.975 12.2583 5.05 12.15 5.15 12.05L9.775 7.425L9.05 6.72501L4.45 11.35C4.36667 11.4333 4.26667 11.5 4.15 11.55C4.03333 11.6 3.89167 11.625 3.725 11.625C3.44167 11.625 3.204 11.529 3.012 11.337C2.82 11.145 2.72433 10.9077 2.725 10.625C2.725 10.4917 2.75 10.3667 2.8 10.25C2.85 10.1333 2.925 10.025 3.025 9.925L8.6 4.35L12.35 8.125C12.5333 8.30834 12.75 8.45434 13 8.563C13.25 8.67167 13.5 8.72567 13.75 8.72501C14.2833 8.72501 14.75 8.53734 15.15 8.162C15.55 7.78667 15.75 7.30767 15.75 6.72501C15.75 6.49167 15.7083 6.25 15.625 6C15.5417 5.75 15.3917 5.51667 15.175 5.3L10.7 0.825005C10.9833 0.558338 11.3 0.354005 11.65 0.212005C12 0.0700046 12.35 -0.000661994 12.7 4.6729e-06C13.1333 4.6729e-06 13.5333 0.0710047 13.9 0.213005C14.2667 0.355005 14.6 0.575671 14.9 0.875005L19.125 5.125C19.425 5.425 19.646 5.75834 19.788 6.125C19.93 6.49167 20.0007 6.91667 20 7.4C20 7.73334 19.925 8.07067 19.775 8.412C19.625 8.75334 19.4083 9.06601 19.125 9.35001L10.8 17.7C10.6667 17.8333 10.55 17.9167 10.45 17.95C10.35 17.9833 10.2333 18 10.1 18ZM1.525 10L0.875 9.35001C0.591667 9.08334 0.375 8.76667 0.225 8.4C0.0749999 8.03334 0 7.65 0 7.25C0 6.81667 0.0833333 6.41667 0.25 6.05C0.416667 5.68334 0.625 5.375 0.875 5.125L5.1 0.875005C5.36667 0.608338 5.68333 0.395671 6.05 0.237005C6.41667 0.078338 6.775 -0.000661994 7.125 4.6729e-06C7.575 4.6729e-06 7.975 0.0626713 8.325 0.188005C8.675 0.313338 9.01667 0.542338 9.35 0.875005L14.475 6C14.575 6.1 14.65 6.20834 14.7 6.325C14.75 6.44167 14.775 6.56667 14.775 6.7C14.775 6.96667 14.675 7.2 14.475 7.4C14.275 7.6 14.0417 7.7 13.775 7.7C13.625 7.7 13.5 7.679 13.4 7.637C13.3 7.595 13.1917 7.516 13.075 7.4L8.575 2.95L1.525 10Z" fill="#333333" />
-                            <circle opacity="0.8" cx="16.5" cy="14.5" r="3.5" fill="#FB8F60" />
-                        </svg>
-                    </div>
-                    <div class="my-6">Menjalin kerja sama</div>
-                    <div class="text-child">Dengan website ini anda dapat menjalin kerja sama dengan pihak sponsor</div>
-                </div>
-                <div class="flex flex-col max-w-[300px] gap-2 dark:bg-[#071440] p-10 rounded-tl-3xl shadow-2xl">
-                    <div class="w-10 h-10">
-                        <svg viewBox="0 0 17 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path class="dark:fill-[#06CBE2]" fill-rule="evenodd" clip-rule="evenodd" d="M4.40669 0H1.57382C0.704232 0 0 0.705071 0 1.57382V16.053C0 16.9217 0.705071 17.6268 1.57382 17.6268H12.2758C13.1445 17.6268 13.8496 16.9217 13.8496 16.053V9.44292C13.8496 8.60811 13.518 7.8075 12.9277 7.2172C12.3374 6.6269 11.5368 6.29528 10.702 6.29528H9.12815C8.71075 6.29528 8.31044 6.12946 8.01529 5.83432C7.72014 5.53917 7.55433 5.13886 7.55433 4.72146V3.14764C7.55433 2.31283 7.22271 1.51222 6.63241 0.921922C6.04211 0.331625 5.2415 0 4.40669 0ZM9.95493 9.17935C10.0053 9.11225 10.0417 9.03575 10.0621 8.95436C10.0825 8.87297 10.0864 8.78833 10.0736 8.70541C10.0608 8.62249 10.0315 8.54296 9.98754 8.47151C9.94357 8.40006 9.88575 8.33812 9.81749 8.28933C9.74923 8.24054 9.67191 8.20589 9.59006 8.18741C9.50822 8.16893 9.42351 8.167 9.34091 8.18173C9.25831 8.19646 9.17949 8.22755 9.10908 8.27318C9.03867 8.31881 8.97809 8.37805 8.9309 8.44742L6.2147 12.2498L4.85156 10.8866C4.73222 10.7754 4.57438 10.7149 4.41129 10.7178C4.2482 10.7206 4.09259 10.7867 3.97725 10.9021C3.86191 11.0174 3.79584 11.173 3.79297 11.3361C3.79009 11.4992 3.85063 11.657 3.96183 11.7764L5.85041 13.6649C5.91503 13.7295 5.99294 13.7793 6.07871 13.8107C6.16448 13.8421 6.25607 13.8545 6.34712 13.847C6.43817 13.8395 6.52649 13.8123 6.60595 13.7672C6.68542 13.7222 6.75412 13.6603 6.80729 13.586L9.95493 9.17935Z" fill="#333333" />
-                            <path class="dark:fill-[#06CBE2]" d="M7.74023 0.265625C8.43399 1.06551 8.81526 2.0892 8.81379 3.14802V4.72184C8.81379 4.89559 8.9548 5.03661 9.12855 5.03661H10.7024C11.7612 5.03514 12.7849 5.41641 13.5848 6.11016C13.2155 4.70565 12.4798 3.42443 11.4529 2.39753C10.426 1.37063 9.14475 0.634918 7.74023 0.265625Z" fill="#333333" />
-                            <circle opacity="0.8" cx="13.15" cy="15.15" r="3.15" fill="#FB8F60" />
-                        </svg>
-                    </div>
-                    <div class="my-6">Dokumentasi kerja sama</div>
-                    <div class="text-child">Kerja sama akan terdokumentasi, baik yang deal maupun yang tidak</div>
-                </div>
-            </div>
-        </div>  
-    </section> -->
-
     <section id="about2" class="py-10 sm:py-16 lg:py-24">
         <!-- apa yang bisa kita lakukan -->
         <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <!-- head -->
             <div class="max-w-xl mx-auto text-center">
                 <h2 class="mt-6 text-header">Apa yang bisa kita lakukan ?</h2>
-                <!-- <p class="mt-4 text-base leading-relaxed text-gray-600">Amet minim mollit non deserunt ullamco est sit
-                    aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p> -->
             </div>
             <!-- end head -->
             <div class="grid grid-cols-1 gap-5 mt-12 sm:grid-cols-3 lg:mt-20 lg:gap-x-12">

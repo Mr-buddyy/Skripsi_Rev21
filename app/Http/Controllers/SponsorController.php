@@ -13,7 +13,9 @@ class SponsorController  extends Controller
     public function sponsorship()
     {
         $userId = Auth::user()->id;
+
         $partnership = Partnership::where('sponsor_id', $userId)->get();
+        // dd($partnership);
         $page = "sponsorship";
         $role = "sponsorship";
         return view("sponsor.pages.sponsorship", compact('role', 'page', 'partnership'));

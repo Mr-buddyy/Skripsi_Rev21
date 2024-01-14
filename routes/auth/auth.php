@@ -2,9 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-namespace App\Http\Controllers\Auth;
-
-
 
 //Route Login
 Route::get('/login', [AuthController::class, 'login'])->middleware('guest');
@@ -13,3 +10,6 @@ Route::post('logout', [AuthController::class, 'logout']);
 //Route Register
 Route::get('/register', [AuthController::class, 'register'])->middleware('guest');
 Route::post('/register', [AuthController::class, 'store'])->name('register');
+
+Route::get('/login/google', [AuthController::class, 'redirectToGoogle']);
+Route::get('/login/google/callback', [AuthController::class, 'handleGoogleCallback']);

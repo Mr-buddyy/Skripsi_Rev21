@@ -1,7 +1,76 @@
 @extends('mahasiswa.layout.basetemplate')
 @section('content')
-<div class="ease-soft-in-out max-w-[1240px] mx-auto relative transition-all duration-200 ">
-    <nav class="absolute z-20 flex flex-wrap items-center justify-between w-full px-6 py-2  transition-all shadow-none duration-250 ease-soft-in lg:flex-nowrap lg:justify-start" navbar-profile navbar-scroll="true">
+@if(session('success') || session('error'))
+<div id="modal-success" class="fixed inset-0 z-50 flex items-center justify-center hidden">
+    <div class="flex flex-col justify-center bg-white p-16 rounded-md shadow-md">
+        <div class="flex flex-row justify-center p-5">
+            <svg class="w-48 h-48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+                <g id="SVGRepo_iconCarrier">
+                    <circle cx="12" cy="12" r="9" fill="#43A047" fill-opacity="0.24"></circle>
+                    <path d="M9 10L12.2581 12.4436C12.6766 12.7574 13.2662 12.6957 13.6107 12.3021L20 5" stroke="#43A047" stroke-width="1.2" stroke-linecap="round"></path>
+                    <path d="M21 12C21 13.8805 20.411 15.7137 19.3156 17.2423C18.2203 18.7709 16.6736 19.9179 14.893 20.5224C13.1123 21.1268 11.187 21.1583 9.38744 20.6125C7.58792 20.0666 6.00459 18.9707 4.85982 17.4789C3.71505 15.987 3.06635 14.174 3.00482 12.2945C2.94329 10.415 3.47203 8.56344 4.51677 6.99987C5.56152 5.4363 7.06979 4.23925 8.82975 3.57685C10.5897 2.91444 12.513 2.81996 14.3294 3.30667" stroke="#43A047" stroke-width="1.2" stroke-linecap="round"></path>
+                </g>
+            </svg>
+        </div>
+        <p class="text-bold text-2xl">
+            @if(session('success'))
+            {{ session('success') }}
+            @elseif(session('error'))
+            {{ session('error') }}
+            @endif
+        </p>
+        <p id="countdown-text"></p>
+        <button onclick="closeModal()" class="px-5 py-4 rounded-md bg-green-500 text-white">Tutup</button>
+    </div>
+</div>
+<script>
+    var countdown = 10; // waktu dalam detik
+
+    // Fungsi untuk memperbarui waktu dan menutup modal
+    function updateCountdownAndCloseModal() {
+        var countdownText = document.getElementById('countdown-text');
+        countdown--;
+
+        // Update teks waktu di dalam modal
+        countdownText.innerText = "Otomatis menutup dalam " + countdown + " detik";
+
+        if (countdown <= 0) {
+            closeModal();
+        } else {
+            // Panggil fungsi setelah 1 detik
+            setTimeout(function() {
+                updateCountdownAndCloseModal();
+            }, 1000);
+        }
+    }
+
+    // Fungsi untuk membuka modal
+    function openModal() {
+        var modal = document.getElementById('modal-success');
+        modal.classList.remove('hidden');
+        updateCountdownAndCloseModal(); // Memulai perhitungan waktu saat modal terbuka
+    }
+
+    // Fungsi untuk menutup modal
+    function closeModal() {
+        var modal = document.getElementById('modal-success');
+        modal.classList.add('opacity-0');
+        // Tambahkan delay sebelum menyembunyikan modal
+        setTimeout(function() {
+            modal.classList.add('hidden');
+            modal.classList.remove('opacity-0');
+        }, 300);
+    }
+
+    // Panggil fungsi openModal ketika halaman dimuat
+    window.onload = openModal;
+</script>
+@endif
+
+<div class="py-28 ease-soft-in-out max-w-[1240px] mx-auto relative transition-all duration-200 ">
+    <nav class="absolute z-20 flex flex-wrap items-center justify-between w-full px-6 py-10  transition-all shadow-none duration-250 ease-soft-in lg:flex-nowrap lg:justify-start" navbar-profile navbar-scroll="true">
         <div class="flex items-center justify-between w-full px-6 py-1 mx-auto flex-wrap-inherit">
             <nav>
                 <!-- breadcrumb -->
@@ -18,7 +87,7 @@
     </nav>
 
     <div class="w-full px-6 mx-auto">
-        @if($user->profile && !empty($user->profile->photo_account))
+        @if ($user->profile && $user->profile->photo_cover)
         <div class="relative flex items-center p-0 sm:mt-16 lg:mt-24 overflow-hidden bg-center bg-cover min-h-75 rounded-2xl" style="background-image: url('{{ asset('storage/' . Auth::user()->profile->photo_cover) }}'); background-position-y: 50%">
         </div>
         @else
@@ -32,14 +101,17 @@
                         @if($user->profile && !empty($user->profile->photo_account))
                         <img src="{{ asset('storage/' . $user->profile->photo_account) }}" alt="Foto Profil" class="h-18.5 w-18.5 rounded-xl">
                         @else
-                        <img src="../assets/img/bruce-mars.jpg" alt="profile_image" class="w-full shadow-soft-sm rounded-xl" />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000" class="w-full shadow-soft-sm rounded-xl">
+                            <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
+                        </svg>
+                        <!-- <img src="../assets/img/bruce-mars.jpg" alt="profile_image" class="w-full shadow-soft-sm rounded-xl" /> -->
                         @endif
 
                     </div>
                 </div>
                 <div class="flex-none w-auto max-w-full px-3 my-auto">
                     <div class="h-full">
-                        <h5 class="mb-1">{{ auth()->user()->username}}</h5>
+                        <h5 class="mb-1">{{ auth()->user()->name}}</h5>
                         <!-- <p class="mb-0 font-semibold leading-normal text-sm">CEO / Co-Founder</p> -->
                     </div>
                 </div>
@@ -75,28 +147,10 @@
     </div>
     <div class="w-full p-6 mx-auto">
         <div class="flex flex-wrap -mx-3">
-            <div class="w-full max-w-full px-3 lg-max:mt-6 xl:w-1/2">
-                <div class="relative flex flex-col h-full min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
-
-                    <!-- <div class="p-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
-                        <div class="flex flex-wrap -mx-3">
-                            <div class="flex items-center w-full max-w-full px-3 shrink-0 md:w-8/12 md:flex-none">
-                                <h6 class="mb-0">Informasi Perusahaan</h6>
-                            </div>
-                            <div class="w-full max-w-full px-3 text-right shrink-0 md:w-4/12 md:flex-none">
-                                <a href="javascript:;" data-target="tooltip_trigger" data-placement="top">
-                                    <i class="leading-normal fas fa-user-edit text-sm text-slate-400"></i>
-                                </a>
-                                <div data-target="tooltip" class="hidden px-2 py-1 text-center text-white bg-black rounded-lg text-sm" role="tooltip">
-                                    Edit Profile
-                                    <div class="invisible absolute h-2 w-2 bg-inherit before:visible before:absolute before:h-2 before:w-2 before:rotate-45 before:bg-inherit before:content-['']" data-popper-arrow></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
+            <div class="w-full max-w-full px-3 lg-max:mt-6 xl:w-1">
+                <div class="relative flex flex-row h-full min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
                     @if(Auth::check())
                     <div class="flex-auto p-8">
-                        <!-- <hr class="h-px bg-gradient-to-r from-transparent via-black to-transparent" /> -->
                         <h5 class="mb-5">Informasi Event</h5>
                         <ul class="flex flex-col pl-0 mb-0 rounded-lg">
                             <li class="relative flex flex-row justify-between px-4 pb-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
@@ -106,25 +160,15 @@
                                 <div class="w-1/2 flex flex-row justify-start">
                                     {{ empty($user->profile) ? '-' : $user->profile->nama_perusahaan}}
                                 </div>
-                                <!-- <strong class="text-slate-700">Nama Perusahaan:</strong> &nbsp; {{ empty($user->profile) ? '-' : $user->profile->nama_perusahaan}} -->
                             </li>
                             <li class="relative flex flex-row justify-between px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
                                 <strong class="text-slate-700 w-1/2 flex flex-row justify-start">
                                     Deskripsi Event
                                 </strong>
                                 <div class="w-1/2 flex flex-row justify-start leading-normal">
-                                    <!-- {{ empty($user->profile) ? '-' : $user->profile->deskripsi}} -->
                                     {{ empty($user->profile) ? '-' : $user->profile->deskripsi}}
-
-
                                 </div>
                             </li>
-                            <!-- <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
-                                <strong class="text-slate-700">Deskripsi Perusahaan:</strong>
-                            </li>
-                            <p class="leading-normal text-sm">
-                                {{ empty($user->profile) ? '-' : $user->profile->deskripsi}}
-                            </p> -->
                             <li class="relative flex flex-row justify-between px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
                                 <strong class="text-slate-700 w-1/2 flex flex-row justify-start">
                                     Nomor telpon
@@ -133,9 +177,6 @@
                                     {{ empty($user->profile) ? '-' : $user->profile->telpon}}
                                 </div>
                             </li>
-                            <!-- <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
-                                <strong class="text-slate-700">Nomor telpon:</strong> &nbsp; {{ empty($user->profile) ? '-' : $user->profile->telpon}}
-                            </li> -->
                             <li class="relative flex flex-row justify-between px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
                                 <strong class="text-slate-700 w-1/2 flex flex-row justify-start">
                                     Email
@@ -143,10 +184,6 @@
                                 <div class="w-1/2 flex flex-row justify-start leading-normal">
                                     {{$user->email}}
                                 </div>
-                                <!-- </li>
-                            <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
-                                <strong class="text-slate-700">Email:</strong> &nbsp; {{$user->email}}
-                            </li> -->
                             <li class="relative flex flex-row justify-between px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
                                 <strong class="text-slate-700 w-1/2 flex flex-row justify-start">
                                     Alamat
@@ -155,9 +192,6 @@
                                     {{empty($user->profile) ? '-' : $user->profile->alamat}}
                                 </div>
                             </li>
-                            <!-- <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
-                                <strong class="text-slate-700">Alamat:</strong> &nbsp; {{empty($user->profile) ? '-' : $user->profile->alamat}}
-                            </li> -->
                             <li class="relative flex flex-row justify-between px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
                                 <strong class="text-slate-700 w-1/2 flex flex-row justify-start">
                                     Kriteria Peserta
@@ -166,139 +200,19 @@
                                     {{empty($user->profile) ? '-' : $user->profile->jumlah_peserta}} Partisipan
                                 </div>
                             </li>
-                            <!-- <li class="relative block px-4 py-2 pl-0 leading-normal bg-white border-0 border-t-0 text-sm text-inherit">
-                                <strong class="text-slate-700">Kriteria Peserta:</strong> &nbsp; {{empty($user->profile) ? '-' : $user->profile->jumlah_peserta}} Partisipan
-                            </li> -->
                         </ul>
+                    </div>
+                    <div class="flex justify-end p-8 md:justify-center">
+                        <div class="h-1">
+                            <a href="/chat">
+                                <button class="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"> Lihat Pesan</button>
+                            </a>
+                        </div>
                     </div>
                     @endif
                 </div>
             </div>
 
-
-
-
-            <div class="w-full max-w-full px-3 lg-max:mt-6 xl:w-1/2">
-                <div class="relative flex flex-col h-full min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
-                    <div class="p-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
-                        <h6 class="mb-0">Conversations</h6>
-                    </div>
-                    <div class="flex-auto p-4">
-                        <ul class="flex flex-col pl-0 mb-0 rounded-lg">
-                            <li class="relative flex flex-row justify-between items-center px-0 py-2 mb-2 bg-white border-0 rounded-t-lg text-inherit">
-                                <div class="w-1/2 flex flex-row justify-start">
-                                    asdasdasdasd
-                                </div>
-                                <div class="w-1/2 flex flex-row justify-start">
-                                    sadasdasdf
-                                </div>
-                            </li>
-                            <li class="w-full flex flex-row justify-between items-center px-0 py-2 mb-2 bg-white border-0 border-t-0 text-inherit">
-                                <div class="w-1/2 flex flex-row justify-start">
-                                    sadf
-                                </div>
-                                <div class="w-1/2 flex flex-row justify-start">
-                                    sadf
-                                </div>
-                            </li>
-                            <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 border-t-0 text-inherit">
-                                <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
-                                    <img src="../assets/img/ivana-square.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl" />
-                                </div>
-                                <div class="flex flex-col items-start justify-center">
-                                    <h6 class="mb-0 leading-normal text-sm">Ivanna</h6>
-                                    <p class="mb-0 leading-tight text-xs">About files I can..</p>
-                                </div>
-                                <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
-                            </li>
-                            <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 border-t-0 text-inherit">
-                                <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
-                                    <img src="../assets/img/team-4.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl" />
-                                </div>
-                                <div class="flex flex-col items-start justify-center">
-                                    <h6 class="mb-0 leading-normal text-sm">Peterson</h6>
-                                    <p class="mb-0 leading-tight text-xs">Have a great afternoon..</p>
-                                </div>
-                                <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
-                            </li>
-                            <li class="relative flex items-center px-0 py-2 bg-white border-0 border-t-0 rounded-b-lg text-inherit">
-                                <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
-                                    <img src="../assets/img/team-3.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl" />
-                                </div>
-                                <div class="flex flex-col items-start justify-center">
-                                    <h6 class="mb-0 leading-normal text-sm">Nick Daniel</h6>
-                                    <p class="mb-0 leading-tight text-xs">Hi! I need more information..</p>
-                                </div>
-                                <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-
-
-            <!-- <div class="w-full max-w-full px-3 lg-max:mt-6 xl:w-1/2">
-                <div class="relative flex flex-col h-full min-w-0 break-words bg-white border-0 shadow-soft-xl rounded-2xl bg-clip-border">
-                    <div class="p-4 pb-0 mb-0 bg-white border-b-0 rounded-t-2xl">
-                        <h6 class="mb-0">Conversations</h6>
-                    </div>
-                    <div class="flex-auto p-4">
-                        <ul class="flex flex-col pl-0 mb-0 rounded-lg">
-                            <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 rounded-t-lg text-inherit">
-                                <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
-                                    <img src="../assets/img/kal-visuals-square.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl" />
-                                </div>
-                                <div class="flex flex-col items-start justify-center">
-                                    <h6 class="mb-0 leading-normal text-sm">Sophie B.</h6>
-                                    <p class="mb-0 leading-tight text-xs">Hi! I need more information..</p>
-                                </div>
-                                <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
-                            </li>
-                            <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 border-t-0 text-inherit">
-                                <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
-                                    <img src="../assets/img/marie.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl" />
-                                </div>
-                                <div class="flex flex-col items-start justify-center">
-                                    <h6 class="mb-0 leading-normal text-sm">Anne Marie</h6>
-                                    <p class="mb-0 leading-tight text-xs">Awesome work, can you..</p>
-                                </div>
-                                <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
-                            </li>
-                            <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 border-t-0 text-inherit">
-                                <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
-                                    <img src="../assets/img/ivana-square.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl" />
-                                </div>
-                                <div class="flex flex-col items-start justify-center">
-                                    <h6 class="mb-0 leading-normal text-sm">Ivanna</h6>
-                                    <p class="mb-0 leading-tight text-xs">About files I can..</p>
-                                </div>
-                                <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
-                            </li>
-                            <li class="relative flex items-center px-0 py-2 mb-2 bg-white border-0 border-t-0 text-inherit">
-                                <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
-                                    <img src="../assets/img/team-4.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl" />
-                                </div>
-                                <div class="flex flex-col items-start justify-center">
-                                    <h6 class="mb-0 leading-normal text-sm">Peterson</h6>
-                                    <p class="mb-0 leading-tight text-xs">Have a great afternoon..</p>
-                                </div>
-                                <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
-                            </li>
-                            <li class="relative flex items-center px-0 py-2 bg-white border-0 border-t-0 rounded-b-lg text-inherit">
-                                <div class="inline-flex items-center justify-center w-12 h-12 mr-4 text-white transition-all duration-200 text-base ease-soft-in-out rounded-xl">
-                                    <img src="../assets/img/team-3.jpg" alt="kal" class="w-full shadow-soft-2xl rounded-xl" />
-                                </div>
-                                <div class="flex flex-col items-start justify-center">
-                                    <h6 class="mb-0 leading-normal text-sm">Nick Daniel</h6>
-                                    <p class="mb-0 leading-tight text-xs">Hi! I need more information..</p>
-                                </div>
-                                <a class="inline-block py-3 pl-0 pr-4 mb-0 ml-auto font-bold text-center uppercase align-middle transition-all bg-transparent border-0 rounded-lg shadow-none cursor-pointer leading-pro text-xs ease-soft-in hover:scale-102 hover:active:scale-102 active:opacity-85 text-fuchsia-500 hover:text-fuchsia-800 hover:shadow-none active:scale-100" href="javascript:;">Reply</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </div>

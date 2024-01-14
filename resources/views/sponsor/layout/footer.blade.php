@@ -18,40 +18,7 @@
         }
     }
 </script>
-<!-- status -->
-<!-- <script>
-    function confirmStatusChange() {
-        var selectedStatus = document.getElementsByName('sponsor_status').value;
-        if (selectedStatus === 'rejected') {
-            return confirm('Anda yakin ingin menolak? Ini akan memiliki konsekuensi tertentu.');
-        }
-        return confirm('Apakah Anda yakin ingin menyimpan perubahan status?');
-    }
-</script> -->
-<!-- hide modal -->
 
-<!-- <script>
-    const modal = document.getElementById('statusModal');
-    const showModalButton = document.getElementById('showModalButton');
-    const cancelButton = document.getElementById('cancelButton');
-    const saveButton = document.getElementById('saveButton');
-
-    showModalButton.addEventListener('click', () => {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    });
-
-    cancelButton.addEventListener('click', () => {
-        modal.classList.remove('flex');
-        modal.classList.add('hidden');
-    });
-
-    saveButton.addEventListener('click', () => {
-        // Lanjutkan dengan mengirimkan perubahan status ke server atau melakukan tindakan lainnya.
-        modal.classList.remove('flex');
-        modal.classList.add('hidden');
-    });
-</script> -->
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -83,58 +50,6 @@
     });
 </script>
 
-<!-- js status -->
-<!-- <script>
-    const modal = document.querySelector('.modal');
-    const showModalButton = document.getElementById('showModalButton');
-    const cancelButton = document.getElementById('cancelButton');
-    const saveButton = document.getElementById('saveButton');
-
-    showModalButton.addEventListener('click', () => {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-    });
-
-    cancelButton.addEventListener('click', function(e) {
-        e.preventDefault();
-        modal.classList.remove('flex');
-        modal.classList.add('hidden');
-
-    });
-
-    saveButton.addEventListener('click', () => {
-        // Lanjutkan dengan mengirimkan perubahan status ke server atau melakukan tindakan lainnya.
-        modal.classList.remove('flex');
-        modal.classList.add('hidden');
-    });
-</script> -->
-
-
-<!-- js upload mou -->
-<!-- <script>
-    // Fungsi untuk membuka modal
-    function openDetailModal() {
-        document.getElementById('detailModal').classList.remove('hidden');
-    }
-
-    // Fungsi untuk menutup modal
-    function closeDetailModal() {
-        document.getElementById('detailModal').classList.add('hidden');
-    }
-
-    // Menampilkan modal ketika tombol "Detail" diklik
-    document.getElementById('openDetailModal').addEventListener('click', openDetailModal);
-
-    // Menutup modal saat tombol "Batal" diklik
-    document.getElementById('cancelButton').addEventListener('click', closeDetailModal);
-
-    // Tambahkan kode untuk mengirim data ketika tombol "Konfirmasi" diklik
-    document.getElementById('confirmButton').addEventListener('click', function() {
-        // Tambahkan kode pengiriman data di sini
-        // Setelah pengiriman data selesai, Anda bisa menutup modal dengan memanggil closeDetailModal()
-        closeDetailModal();
-    });
-</script> -->
 
 
 </body>

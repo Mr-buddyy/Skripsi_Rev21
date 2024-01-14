@@ -1,6 +1,7 @@
 @extends('mahasiswa.layout.basetemplate')
 @section('content')
 @include('mahasiswa.pages.partnership.layout.headertemplate')
+
 <div class=" my-10 p-8 rounded-3xl shadow-2xl bg-white">
     <div class="flex flex-row justify-between">
         <h1 class="font-medium text-3xl">Sedap Sentosa</h1>

@@ -6,6 +6,8 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Laravel\Socialite\Facades\Socialite;
+use Laravel\Socialite\Two\InvalidStateException;
 
 class AuthController extends Controller
 {
@@ -52,7 +54,7 @@ class AuthController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'username' => 'required',
+            'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:8',
             'role' => 'required'
@@ -62,4 +64,45 @@ class AuthController extends Controller
 
         return redirect('/login')->with('success', 'Buat Akun Berhasil, Silahkan Login');
     }
+    public function redirectToGoogle()
+    {
+        return Socialite::driver('google')->stateless()->redirect();
+    }
+
+    // Redirect to Google's authentication page
+    public function handleGoogleCallback()
+    {
+        // Google user object dari google
+        try {
+            $userFromGoogle = Socialite::driver('google')->user();
+        } catch (InvalidStateException $e) {
+            $userFromGoogle = Socialite::driver('google')->stateless()->user();
+        }
+
+        // Ambil user dari database berdasarkan google user id
+        $userFromDatabase = User::where('email', $userFromGoogle->getEmail())->first();
+
+        // Jika tidak ada user, maka buat user baru
+        if (!$userFromDatabase) {
+            // If the user does not exist, redirect to the registration page with Google user data
+            return redirect()->route('register')->withInput([
+                'name' => $userFromGoogle->getName(),
+                'email' => $userFromGoogle->getEmail(),
+            ])->with('error', 'Akun Google belum terdaftar, silahkan daftar terlebih dahulu');
+        }
+
+        // Jika ada user langsung login saja
+        auth('web')->login($userFromDatabase);
+        session()->regenerate();
+
+        if (Auth::user()->role == 'admin') {
+            return redirect()->intended('/admin')->with('success', 'Berhasil Login');
+        } else if (Auth::user()->role == 'sponsor') {
+            return redirect()->intended('/sponsor/sponsorship')->with('success', 'Berhasil Login');
+        } else if (Auth::user()->role == 'mahasiswa') {
+            return redirect()->intended('/')->with('success', 'Berhasil Login');
+        }
+        // return redirect('/');
+    }
+
 }

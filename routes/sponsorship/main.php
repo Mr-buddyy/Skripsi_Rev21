@@ -1,9 +1,9 @@
 <?php
 
+use App\Http\Controllers\MahasiswaController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PartnershipController;
-
 
 // Route Mahasiswa
 Route::group(['middleware' => ['mahasiswa']], function () {
@@ -18,3 +18,4 @@ Route::post('upload-mou/{id}', [PartnershipController::class, 'uploadMou'])->nam
 Route::group(['middleware' => ['sponsor']], function () {
     Route::post('update-sponsor/{id}', [PartnershipController::class, 'update'])->name('sponsor.update'); //update status partnership
 });
+Route::get('download-pdf-by-sponsor/{id}', [MahasiswaController::class, 'downloadLPJ'])->name('download.LPJ'); //download pdf by sponsor
