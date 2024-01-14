@@ -92,7 +92,7 @@ class ProfileController  extends Controller
             return view("admin.pages.profile.editprofile", compact('page'));
         } else if (Auth::check() && $this->user->role == 'sponsor') {
             $page = "profile";
-            return view("sponsor.pages.profile.editprofile", compact('page'));
+            return view("sponsor.pages.profile.editprofile", compact('page', 'user'));
         } else if (Auth::check() && $this->user->role == 'mahasiswa') {
             $role = "mahasiswa";
             return view("mahasiswa.pages.profile.editprofile", compact('role'));

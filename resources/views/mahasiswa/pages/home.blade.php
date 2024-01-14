@@ -1,77 +1,8 @@
 @extends('mahasiswa.layout.basetemplate')
 @section('content')
 <main>
-    @if(session('success') || session('error'))
-    <div id="modal-success" class="fixed inset-0 z-50 flex items-center justify-center hidden">
-        <div class="flex flex-col justify-center bg-white p-16 rounded-md shadow-md">
-            <div class="flex flex-row justify-center p-5">
-                <svg class="w-48 h-48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                    <g id="SVGRepo_iconCarrier">
-                        <circle cx="12" cy="12" r="9" fill="#43A047" fill-opacity="0.24"></circle>
-                        <path d="M9 10L12.2581 12.4436C12.6766 12.7574 13.2662 12.6957 13.6107 12.3021L20 5" stroke="#43A047" stroke-width="1.2" stroke-linecap="round"></path>
-                        <path d="M21 12C21 13.8805 20.411 15.7137 19.3156 17.2423C18.2203 18.7709 16.6736 19.9179 14.893 20.5224C13.1123 21.1268 11.187 21.1583 9.38744 20.6125C7.58792 20.0666 6.00459 18.9707 4.85982 17.4789C3.71505 15.987 3.06635 14.174 3.00482 12.2945C2.94329 10.415 3.47203 8.56344 4.51677 6.99987C5.56152 5.4363 7.06979 4.23925 8.82975 3.57685C10.5897 2.91444 12.513 2.81996 14.3294 3.30667" stroke="#43A047" stroke-width="1.2" stroke-linecap="round"></path>
-                    </g>
-                </svg>
-            </div>
-            <p class="text-bold text-2xl">
-                @if(session('success'))
-                {{ session('success') }}
-                @elseif(session('error'))
-                {{ session('error') }}
-                @endif
-            </p>
-            <p id="countdown-text"></p>
-            <button onclick="closeModal()" class="px-5 py-4 rounded-md bg-green-500 text-white">Tutup</button>
-        </div>
-    </div>
-    <script>
-        var countdown = 10; // waktu dalam detik
-
-        // Fungsi untuk memperbarui waktu dan menutup modal
-        function updateCountdownAndCloseModal() {
-            var countdownText = document.getElementById('countdown-text');
-            countdown--;
-
-            // Update teks waktu di dalam modal
-            countdownText.innerText = "Otomatis menutup dalam " + countdown + " detik";
-
-            if (countdown <= 0) {
-                closeModal();
-            } else {
-                // Panggil fungsi setelah 1 detik
-                setTimeout(function() {
-                    updateCountdownAndCloseModal();
-                }, 1000);
-            }
-        }
-
-        // Fungsi untuk membuka modal
-        function openModal() {
-            var modal = document.getElementById('modal-success');
-            modal.classList.remove('hidden');
-            updateCountdownAndCloseModal(); // Memulai perhitungan waktu saat modal terbuka
-        }
-
-        // Fungsi untuk menutup modal
-        function closeModal() {
-            var modal = document.getElementById('modal-success');
-            modal.classList.add('opacity-0');
-            // Tambahkan delay sebelum menyembunyikan modal
-            setTimeout(function() {
-                modal.classList.add('hidden');
-                modal.classList.remove('opacity-0');
-            }, 300);
-        }
-
-        // Panggil fungsi openModal ketika halaman dimuat
-        window.onload = openModal;
-    </script>
-    @endif
-
     <!-- hero -->
-    <section class="py-10 sm:py-16 lg:py-24">
+    <section class="py-28">
         <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div class="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
                 <!-- left -->
@@ -87,17 +18,9 @@
                     <p class="text-child"> Temukan Sponsor dan Jalin kerja sama untuk Eventmu dengan website kami.</p>
                     <div class="mt-10 sm:flex sm:items-center sm:space-x-8">
                         <a href="#about" title="" class="hover-shadow btn-primary px-10 py-4" role="button"> Mulai Jelajah </a>
-                        <!-- <a href="#" title="" class="inline-flex items-center mt-6 text-base font-semibold transition-all duration-200 sm:mt-0 hover:opacity-80">
-                            <svg class="w-10 h-10 mr-3" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path fill="#F97316" stroke="#F97316" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                            Watch video
-                        </a> -->
                     </div>
                 </div>
                 <!-- end left -->
-
                 <!-- image rigt -->
                 <div class="pr-12 sm:pr-0">
                     <div class="relative max-w-xs mb-12 ">
@@ -105,9 +28,6 @@
                         <img class="hover-shadow absolute origin-bottom-right scale-75 rounded-md -bottom-12 -right-44 max-w-full" src="{{asset('assets/img/hero2.png')}}" alt="" />
                     </div>
                 </div>
-                <!-- <div>
-                    <img class="w-full rounded-lg" src="{{asset('assets/img/hero.jpg')}}" alt="" />
-                </div> -->
                 <!-- end image right -->
             </div>
         </div>
@@ -126,11 +46,11 @@
                     </div>
                 </div>
                 <!-- end left image -->
-
                 <!-- right -->
                 <div>
                     <h2 class="text-header">Siapa Kita ?</h2>
-                    <p class="text-child ">Sect adalah suatu website yang digunakan untuk mempertemukan mahasiswa penyelenggara event dengan sponsor untuk menjalin kerja sama. Dalam website ini pihak sponsor dapat menawarkan suatu benefit kepada mahasiswa sesuai dengan kriteria yang diinginkan. Disisi lain mahasiswa dapat mengajukan kerja sama dengan sponsor. Mahasiswa hanya dapat mendaftar jika mahasiswa memenuhi kriteria yang telah ditentukan oleh pihak sponsor. Hal itu untuk meminimalisir ditolaknya kerja sama dan efisiensi waktu.</p>
+                    <p class="text-child ">Sect adalah suatu website yang digunakan untuk mempertemukan mahasiswa penyelenggara event dengan sponsor untuk menjalin kerja sama.
+                        Dalam website ini pihak sponsor dapat menawarkan suatu benefit kepada mahasiswa sesuai dengan kriteria yang diinginkan. Disisi lain mahasiswa dapat mengajukan kerja sama dengan sponsor. Mahasiswa hanya dapat mendaftar jika mahasiswa memenuhi kriteria yang telah ditentukan oleh pihak sponsor. Hal itu untuk meminimalisir ditolaknya kerja sama dan efisiensi waktu.</p>
                 </div>
                 <!-- end right -->
             </div>
@@ -287,8 +207,16 @@
             @endphp
 
             <div class="gallery-container grid max-w-md grid-cols-1 gap-6 mx-auto mt-8 lg:mt-16 lg:grid-cols-3 lg:max-w-full">
-                @foreach($sponsors as $sponsor)
-                @if ($sponsor && $sponsor->profile && $sponsor->profile->photo_account)
+                @forelse($sponsors as $sponsor)
+                @if (
+                $sponsor->profile &&
+                $sponsor->profile->nama_perusahaan !== null &&
+                $sponsor->profile->deskripsi !== null &&
+                $sponsor->profile->alamat !== null &&
+                $sponsor->profile->telpon !== null &&
+                $sponsor->profile->jumlah_peserta !== null &&
+                $sponsor->profile->photo_perusahaan !== null
+                )
                 @php
                 $jumlahPeserta = $sponsor->profile->jumlah_peserta;
                 @endphp
@@ -296,8 +224,8 @@
                 <div class="galery-item overflow-hidden bg-white rounded-tl-3xl shadow">
                     <div class="p-5 aspect-w-4 aspect-h-3">
                         <div class="relative ">
-                            <a href="{{ secure_url('details.show-page', ['id' => $sponsor->id]) }}" title="" class="block aspect-w-full h-full">
-                                <img class="object-cover w-full max-h-72 rounded-tl-2xl" src="{{ asset('storage/' . $sponsor->profile->photo_account) }}" alt="" />
+                            <a href="{{ route('details.show-page', ['id' => $sponsor->id]) }}" title="" class="block aspect-w-full h-full">
+                                <img class="object-cover w-full max-h-72 rounded-tl-2xl" src="{{ asset('storage/' . $sponsor->profile->photo_perusahaan) }}" alt="" />
                             </a>
                         </div>
                         <p class="mt-5 text-2xl font-semibold">
@@ -305,7 +233,7 @@
                             </a>
                         </p>
                         <p class="mt-4 text-base text-gray-600">{{$sponsor->profile->deskripsi}}</p>
-                        <a href="{{ secure_url('details.show-page', ['id' => $sponsor->id]) }}" title="" class="inline-flex items-center justify-center pb-0.5 mt-5 text-base font-semibold text-blue-600 transition-all duration-200 border-b-2 border-transparent hover:border-blue-600 focus:border-blue-600">
+                        <a href="{{ route('details.show-page', ['id' => $sponsor->id]) }}" title="" class="inline-flex items-center justify-center pb-0.5 mt-5 text-base font-semibold text-blue-600 transition-all duration-200 border-b-2 border-transparent hover:border-blue-600 focus:border-blue-600">
                             Detail Sponsor
                             <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
@@ -319,7 +247,6 @@
                 </div>
                 @endif
                 @else
-                <div>adasd</div>
                 <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 my-5 rounded relative" role="alert">
                     <span class="font-bold block sm:inline">Sponsor belum tersedia</span>
                 </div>
@@ -327,7 +254,11 @@
                 $counter++;
                 @endphp
                 @endif
-                @endforeach
+                @empty
+                <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 my-5 rounded relative" role="alert">
+                    <span class="font-bold block sm:inline">Sponsor belum tersedia</span>
+                </div>
+                @endforelse
                 <!-- end -->
             </div>
 
@@ -404,7 +335,7 @@
                     <div id="contact" class="px-6 py-12 sm:p-12">
                         <h3 class="text-3xl font-semibold text-center text-gray-900">Kirim Kami Pesan</h3>
 
-                        <form action="{{ secure_url('message') }}" method="POST" class="mt-14">
+                        <form action="{{ route('message') }}" method="POST" class="mt-14">
                             @csrf
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-4 px-10">
                                 <div>

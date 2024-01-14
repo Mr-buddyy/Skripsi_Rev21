@@ -1,6 +1,6 @@
 @include('mahasiswa.layout.header')
-<header class='py-4  px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 min-h-[70px]'>
-    <div class='flex flex-wrap items-center justify-between gap-5 relative'>
+<nav id="navbar" class='py-4 px-4 mx-auto w-full max-w-screen sm:px-6 lg:px-8 min-h-[70px] bg-gray-50 fixed z-40 top-0'>
+    <div class='flex flex-wrap items-center justify-between gap-5'>
         <img class="w-auto h-12 max-w-full" src="{{asset('assets/img/icon2.png')}}" alt="" />
         <div class='flex lg:order-1 max-sm:ml-auto'>
             <ul>
@@ -145,7 +145,7 @@
             </li>
         </ul>
     </div>
-</header>
+</nav>
 
 
 

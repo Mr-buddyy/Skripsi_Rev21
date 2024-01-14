@@ -33,7 +33,6 @@
                                 <tr>
                                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                         <div class="flex px-2 py-1">
-
                                             @php
                                             $photo_profile = '-';
                                             if(isset($item->mahasiswa->profile->photo_account)){
@@ -56,12 +55,10 @@
                                     <td class="p-2  text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                         <p class="mb-0 text-xs font-semibold leading-tight">{{ $item->universitas ?? '-' }}</p>
                                     </td>
-
                                     <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                         <span class="text-xs font-semibold leading-tight text-slate-400">{{ $item->created_at ?? '-' }}</span>
                                     </td>
                                     <td class="p-2 text-sm leading-normal text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
-
                                         @if ($item->status === 'pending')
                                         <span class="bg-black px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">{{ $item->status }}</span>
                                         @elseif ($item->status === 'accepted')
@@ -69,7 +66,6 @@
                                         @elseif ($item->status === 'rejected')
                                         <span class="bg-gradient-to-tl from-red-600 to-rose-400 px-2.5 text-xs rounded-1.8 py-1.4 inline-block whitespace-nowrap text-center align-baseline font-bold uppercase leading-none text-white">{{ $item->status }}</span>
                                         @endif
-
                                     </td>
                                     @if ($item->lpj === null)
                                     <td class="p-2 text-center align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
@@ -80,10 +76,8 @@
                                         <span class="text-xs font-semibold leading-tight text-slate-400">Selesai</span>
                                     </td>
                                     @endif
-
                                 </tr>
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>

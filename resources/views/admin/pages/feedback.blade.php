@@ -112,19 +112,6 @@
                                 <tr>
                                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                         <div class="flex px-2 py-1">
-                                                <!-- @php
-                                                $photo_profile = '-';
-                                                if(isset($message->profile->photo_account)){
-                                                $photo_profile = $message->profile->photo_account;
-                                                }
-                                                @endphp
-                                                @if($photo_profile === '-')
-                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-9 h-9 mr-4">
-                                                    <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
-                                                </svg>
-                                                @else
-                                                <img src="{{ asset('storage/' . $photo_profile) }} " class="inline-flex items-center justify-center mr-4 text-sm text-white transition-all duration-200 ease-soft-in-out h-9 w-9 rounded-xl" alt="user1" />
-                                                @endif -->
                                             <div class="flex flex-col justify-center">
                                                 <h6 class="mb-0 text-sm leading-normal">{{$message->nama}}</h6>
                                             </div>
@@ -148,10 +135,10 @@
                                     </td>
                                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                         <!-- Tombol Delete -->
-                                        <form method="POST" action="{{ secure_url('delete.message', ['id' => $message->id]) }}">
+                                        <form method="POST" action="{{ route('delete.message', ['id' => $message->id]) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-xs font-semibold leading-tight text-slate-400">Delete</button>
+                                            <button type="submit" class="text-xs font-semibold leading-tight text-slate-400">Hapus</button>
                                         </form>
                                     </td>
                                     <!-- Modal Edit -->

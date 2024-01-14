@@ -55,12 +55,13 @@ class PartnershipController extends Controller
             return view('mahasiswa.pages.partnership.request 3.request_succeed', compact('detail', 'user', 'page', 'a', 'partnership'));
         } else if ($partnership->status == 'accepted' || $partnership->pengirim == 'sponsor') {
             $pdfFilename = $partnership->mou;
-            if (Storage::disk('local')->exists('public/' . $pdfFilename)) {
-                $filePath = 'public/' . str_replace(['/', '\\'], '/', $pdfFilename);
+            // dd($pdfFilename);
+            if (Storage::disk('local')->exists('/' . $pdfFilename)) {
+                $filePath = '/' . str_replace(['/', '\\'], '/', $pdfFilename);
                 $pdfContents = Storage::disk('local')->get($filePath);
             }
             $page = "accepted";
-            // dd($pdfContents);
+            // dd($filePath = 'public/' . str_replace(['/', '\\'], '/', $pdfFilename));
             return view('mahasiswa.pages.partnership.request 2.requestaccepted', compact('detail', 'user', 'page', 'partnership', 'pdfContents', 'pdfFilename'));
             // jika partnership dengan status rejected maka akan menampilkan halaman rejected (telah ditolak)
         } else if ($partnership->status == 'rejected') {
@@ -73,6 +74,16 @@ class PartnershipController extends Controller
     public function store(Request $request, $id)
     {
         //melakukan validasi dari inputan
+        $messages = [
+            'nama.required' => 'Kolom Nama Wajib Diisi.',
+            'email.required' => 'Kolom Email Wajib Diisi.',
+            'email.email' => 'Format Email Tidak Valid.',
+            'universitas.required' => 'Kolom Universitas Wajib Diisi.',
+            'telpon.required' => 'Kolom Telpon Wajib Diisi.',
+            'deskripsi.required' => 'Kolom Deskripsi Wajib Diisi.',
+            'proposal.required' => 'Proposal Wajib Diisi.',
+            'proposal.mimes' => 'Format Proposal Harus Berupa PDF.',
+        ];
         $request->validate([
             'nama' => 'required|string|max:255',
             'email' => 'required|email',
@@ -80,7 +91,7 @@ class PartnershipController extends Controller
             'telpon' => 'required|string|max:20',
             'deskripsi' => 'required|string',
             'proposal' => 'required|mimes:pdf',
-        ]);
+        ], $messages);
         // variabel mahasiswa untuk menemukan user yang sedang login
         $mahasiswa = Auth::user();
 
@@ -102,7 +113,7 @@ class PartnershipController extends Controller
         // Menyimpan data ke tabel partnerships
         $partnership->save();
 
-        return redirect()->route('partnership.mahasiswa-page', ['id' => $partnerships->id]);
+        return redirect()->route('partnership.mahasiswa-page', ['id' => $partnerships->id])->with('success', 'Permintaan kerja sama berhasil dikirim.');
     }
 
     // update status partnership (name = sponsor.update, role sponsor)
@@ -184,22 +195,22 @@ class PartnershipController extends Controller
         }
     }
 
+    // download MOU (name = sponsor.download, role mahasiswa)
     public function downloadPdf($id)
     {
-        dd($id);
-        // Temukan entri partnership berdasarkan ID
         $partnership = Partnership::where('sponsor_id', $id)->where('mahasiswa_id', User::auth()->id)->first();
+
+        // $partnership = Partnership::where('sponsor_id', $id)->where('mahasiswa_id', User::auth()->id)->first();
+
         // Periksa apakah entri ditemukan
         if (!$partnership) {
             dd($partnership);
             return abort(404); // Entri tidak ditemukan, hasilkan respons kode status 404 (Not Found)
         }
 
-        // Ambil konten PDF dari kolom 'mou'
         $pdfFilename = $partnership->mou;
         $filePath = 'public/' . str_replace(['/', '\\'], '/', $pdfFilename);
 
-        // Pastikan file PDF ada di penyimpanan lokal
         if (Storage::disk('local')->exists('public/' . $pdfFilename)) {
             $pdfContents = Storage::disk('local')->get($filePath);
             // Return a response with the PDF content
@@ -207,14 +218,12 @@ class PartnershipController extends Controller
                 ->header('Content-Type', 'application/pdf')
                 ->header('Content-Disposition', 'attachment; filename=' . $pdfFilename);
         } else {
-
             // File PDF tidak ditemukan, berikan respons kesalahan
             return abort(404);
         }
     }
-    /**
-     * Show the form for creating a new resource.
-     */
+
+    //LPJ
     public function uploadBukti(Request $request, $id)
     {
 
@@ -223,16 +232,14 @@ class PartnershipController extends Controller
         ]);
 
         $detail = User::find($id);
-        // variabel user untuk menemukan user yang sedang login
         $user = Auth::user();
-        // variabel partnership untuk menemukan data partnership berdasarkan id mahasiswa dan id sponsor
         $partnership = Partnership::where('mahasiswa_id', $user->id)->where('sponsor_id', $detail->id)->first();
-        // Periksa dan simpan gambar foto akun jika ada
+
         if ($request->hasFile('lpj')) {
             $photoBuktiPath = $request->file('lpj')->store('lpj');
             $partnership['lpj'] = $photoBuktiPath;
             $partnership->save();
         }
-        return redirect()->route('partnership.mahasiswa-page', ['id' => $detail->id]);
+        return redirect()->route('partnership.mahasiswa-page', ['id' => $detail->id])->with('success', 'Bukti LPJ berhasil diunggah.');
     }
 }

@@ -1,6 +1,6 @@
 @extends('mahasiswa.layout.basetemplate')
 @section('content')
-<div class="w-full h-full sm:py-16 lg:py-24">
+<div class="w-full h-full py-28">
     <!-- Common hero -->
     <section class="page-hero">
         <div class="container">
@@ -17,47 +17,15 @@
                     </a>
                 </div>
             </div>
-            <!-- <div class="counter mt-16 max-w-[1240px] mx-auto px-4">
-                <div class="flex flex-col lg:flex-row mx-0 rounded-[20px] bg-white px-10 shadow-lg lg:py-5 justify-between">
-                    <div class="border-border p-10 text-center sm:w-1/2 lg:w-1/4 lg:border-r">
-                        <h2>
-                            <span class="count">25M</span> <span class="text-[#A3A1FB]">+</span>
-                        </h2>
-                        <p>Customers</p>
-                    </div>
-                    <div class="border-border p-10 text-center sm:w-1/2 lg:w-1/4 lg:border-r">
-                        <h2>
-                            <span class="count">440M</span> <span class="text-[#5EE2A0]">+</span>
-                        </h2>
-                        <p>Products sold</p>
-                    </div>
-                    <div class="border-border p-10 text-center sm:w-1/2 lg:w-1/4 lg:border-r">
-                        <h2>
-                            <span class="count">50K</span> <span class="text-primary">+</span>
-                        </h2>
-                        <p>Online stores</p>
-                    </div>
-                    <div class="border-border p-10 text-center sm:w-1/2 lg:w-1/4">
-                        <h2>
-                            <span class="count">20K</span> <span class="text-[#FEC163]">+</span>
-                        </h2>
-                        <p>Transactions</p>
-                    </div>
-                </div>
-            </div> -->
-
         </div>
     </section>
     <!-- end Common hero -->
-
     <section id="about2" class="py-10 sm:py-16 lg:py-24">
         <!-- apa yang bisa kita lakukan -->
         <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <!-- head -->
             <div class="max-w-xl mx-auto text-center">
                 <h2 class="mt-6 text-header">Apa yang bisa kita lakukan ?</h2>
-                <!-- <p class="mt-4 text-base leading-relaxed text-gray-600">Amet minim mollit non deserunt ullamco est sit
-                    aliqua dolor do amet sint. Velit officia consequat duis enim velit mollit.</p> -->
             </div>
             <!-- end head -->
             <div class="grid grid-cols-1 gap-5 mt-12 sm:grid-cols-3 lg:mt-20 lg:gap-x-12">

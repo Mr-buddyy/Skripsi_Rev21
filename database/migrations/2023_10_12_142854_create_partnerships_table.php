@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('telpon');
             $table->string('deskripsi');
             $table->string('proposal');
-            $table->string('mou')->default(null);
-            $table->string('lpj')->default(null);
-            $table->string('pengirim')->default(null);
+            $table->string('mou')->nullable();
+            $table->string('lpj')->nullable();
+            $table->string('pengirim')->nullable();
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();

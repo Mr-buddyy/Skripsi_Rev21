@@ -138,34 +138,29 @@
                                         <span class="text-xs font-semibold leading-tight text-slate-400">{{$item['created_at']}}</span>
                                     </td>
                                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
+
                                         <!-- modal -->
                                         <!-- Tombol Edit -->
                                         <button type="button" class="text-xs font-semibold leading-tight text-slate-400 showModalButton" data-modal-id="{{ $item->id }}">Edit</button>
-
                                         <!-- Modal Edit -->
                                         <div class="modal hidden fixed inset-0 z-50 flex items-center justify-center overflow-auto" id="modal{{ $item->id }}">
                                             <div class="modal-overlay absolute inset-0 bg-gray-500 opacity-75"></div>
-
                                             <div class="modal-container bg-white w-1/2 p-8 rounded-lg shadow-lg z-50">
                                                 <!-- Konten Modal -->
                                                 <h2 class="text-xl font-semibold mb-4">Edit Akun</h2>
-
                                                 <!-- Form Edit -->
-                                                <form method="POST" action="{{ secure_url('update.account', ['id' => $item->id]) }}">
+                                                <form method="POST" action="{{ route('update.account', ['id' => $item->id]) }}">
                                                     @csrf
-
                                                     <!-- name -->
                                                     <div class="mb-4">
                                                         <label for="name" class="block text-sm font-medium text-gray-700">name</label>
                                                         <input type="text" name="name" id="name" value="{{ $item->name }}" class="mt-1 p-2 border rounded-md w-full" required>
                                                     </div>
-
                                                     <!-- Email -->
                                                     <div class="mb-4">
                                                         <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
                                                         <input type="email" name="email" id="email" value="{{ $item->email }}" class="mt-1 p-2 border rounded-md w-full" required>
                                                     </div>
-
                                                     <!-- Role -->
                                                     <div class="mb-4">
                                                         <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
@@ -175,13 +170,11 @@
                                                             <option value="sponsor" {{ $item->role === 'sponsor' ? 'selected' : '' }}>Sponsor</option>
                                                         </select>
                                                     </div>
-
                                                     <!-- Password -->
                                                     <div class="mb-4">
                                                         <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
                                                         <input type="password" name="password" id="password" class="mt-1 p-2 border rounded-md w-full">
                                                     </div>
-
                                                     <!-- Tombol Simpan -->
                                                     <div class="mt-4 flex flex-row justify-end gap-2">
                                                         <div class="bg-red-500 hover:bg-red-600 text-white font-medium rounded">
@@ -194,14 +187,13 @@
                                                 </form>
                                             </div>
                                         </div>
-
                                     </td>
                                     <td class="p-2 align-middle bg-transparent border-b whitespace-nowrap shadow-transparent">
                                         <!-- Tombol Delete -->
-                                        <form method="POST" action="{{ secure_url('delete.account', ['id' => $item->id]) }}">
+                                        <form method="POST" action="{{ route('delete.account', ['id' => $item->id]) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="text-xs font-semibold leading-tight text-slate-400">Delete</button>
+                                            <button type="submit" class="text-xs font-semibold leading-tight text-slate-400">Hapus</button>
                                         </form>
                                     </td>
                                 </tr>

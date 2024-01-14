@@ -71,7 +71,7 @@
 @endif
 <div class="my-10 p-8 rounded-3xl shadow-2xl bg-white">
     <div class="flex flex-row justify-between">
-        <h1 class="font-medium text-3xl">Sedap Sentosa</h1>
+        <h1 class="font-medium text-3xl">{{$partnership->sponsor->profile->nama_perusahaan}}</h1>
         <div>
             <a class="text-white py-2 px-4 uppercase rounded bg-blue-400 hover:bg-blue-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"> {{ $partnership->status ?? '-' }}</a>
         </div>
@@ -81,29 +81,27 @@
 
     <div class="flex flex-col mt-8 gap-4"> <!-- grid lg:grid-cols-2 -->
         @if(Auth::check())
-        <form action="{{ secure_url('photoevidence.store', ['id' => $a]) }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('photoevidence.store', ['id' => $a]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="col-span-full">
-                <label for="photo" class="block text-sm font-medium leading-6 text-gray-900">Upload LPJ</label>
+                <label for="photo" class="block text-sm font-medium leading-6 text-gray-900">Upload LPJ<span class="text-red-500 mx-1">*</span></label>
                 <div class="mt-2 flex items-center gap-x-3">
                     <svg class="h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
                         <path fill-rule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clip-rule="evenodd" />
                     </svg>
                     <input type="file" class="form-control" name="lpj">
-                    <!-- <button type="button" class="rounded-md bg-white px-2.5 py-1.5 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">Change</button> -->
                 </div>
+                @error('lpj')
+                <p class="text-red-600 text-sm">{{ $message }}</p>
+                @enderror
             </div>
-
-
             <div class="space-x-4 mt-8">
-                <div class="btn-primary">
-                    <button type="submit" class="px-2">
-                        Kirim
-                    </button>
-                </div>
-                <button class="h-[3rem] w-[6rem] text-gray-600 rounded hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50">
-                    Cancel
+                <button type="submit" class="text-white font-semibold text-base px-10 py-4 rounded-md bg-gradient-to-r from-fuchsia-600 to-blue-600 hover:bg-gradient-to-r hover:from-blue-600 hover:to-fuchsia-600">
+                    Kirim
                 </button>
+                <!-- <button class="h-[3rem] w-[6rem] text-gray-600 rounded hover:bg-gray-100 active:bg-gray-200 disabled:opacity-50">
+                    Cancel
+                </button> -->
             </div>
         </form>
         @endif
@@ -122,12 +120,11 @@
             <span class="sr-only">Success</span>
         </div>
         <p class="mb-4 text-lg font-semibold text-gray-900 dark:text-white">Kerja Sama telah berhasil</p>
-        <button data-modal-toggle="successModal" type="button" class="py-2 px-3 text-sm font-medium text-center text-white rounded-lg bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:focus:ring-primary-900">
+        <!-- <button data-modal-toggle="successModal" type="button" class="py-2 px-3 text-sm font-medium text-center text-white rounded-lg bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:focus:ring-primary-900">
             Continue
-        </button>
+        </button> -->
     </div>
     @endif
-
 </div>
 </div>
 @endsection

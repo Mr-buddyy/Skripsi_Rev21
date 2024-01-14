@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 
 class MahasiswaController extends Controller
@@ -42,8 +43,37 @@ class MahasiswaController extends Controller
     }
     public function home()
     {
-        $sponsors = User::with('partnership')->where('role', 'sponsor')->get();
-        return view("/mahasiswa/pages/home", compact('sponsors'));
+        $loggedInUserId = Auth::id();
+
+        $sponsors = User::where('role', 'sponsor')
+            ->whereDoesntHave('partnership', function ($query) use ($loggedInUserId) {
+                $query->where('mahasiswa_id', $loggedInUserId);
+            })
+            ->get();
+        // dd($sponsors);
+        return view("mahasiswa.pages.home", compact('sponsors'));
+    }
+    public function downloadLPJ()
+    {
+        $partnerships = Partnership::with('sponsor')->whereHas('sponsor')->where('mahasiswa_id', auth()->user()->id)->get();
+        foreach ($partnerships as $partnership) {
+            $pdfFilename = $partnership->mou;
+
+            // You may want to add additional checks or validations here
+
+            $filePath = '/' . str_replace(['/', '\\'], '/', $pdfFilename);
+
+            if (Storage::disk('local')->exists($filePath)) {
+                $pdfContents = Storage::disk('local')->get($filePath);
+
+                return response($pdfContents)
+                    ->header('Content-Type', 'application/pdf')
+                    ->header('Content-Disposition', 'attachment; filename=' . $pdfFilename);
+            } else {
+                // File PDF tidak ditemukan, berikan respons kesalahan
+                return abort(404);
+            }
+        }
     }
     public function sponsorship()
     {
@@ -55,9 +85,13 @@ class MahasiswaController extends Controller
         // Mengambil semua nilai sponsor_id dari $profile
         $sponsorIds = $profile->pluck('sponsor_id');
         // Mengambil semua data User yang sesuai dengan sponsor_ids
-        $partnership = Partnership::with('sponsor')->whereHas('sponsor')->where('mahasiswa_id', auth()->user()->id)->get();
+        $partnerships = Partnership::with('sponsor')->whereHas('sponsor')->where('mahasiswa_id', auth()->user()->id)->get();
+
+        // dd($partnership->user->profile);
         $role = "mahasiswa";
-        return view("mahasiswa.pages.sponsorship", compact('role', 'partnership'));
+
+
+        return view("mahasiswa.pages.sponsorship", compact('role', 'partnerships'));
     }
     public function sponsor()
     {
@@ -68,6 +102,8 @@ class MahasiswaController extends Controller
                 $query->where('mahasiswa_id', $loggedInUserId);
             })
             ->get();
+
+        // dd($sponsors->profile->deskripsi == null);
         $role = "mahasiswa";
         return view("mahasiswa.pages.partnership.sponsor.sponsor", compact('role', 'sponsors'));
     }

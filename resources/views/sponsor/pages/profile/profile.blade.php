@@ -70,10 +70,23 @@
 @endif
 
 <div class="ease-soft-in-out xl:ml-68.5 relative h-full max-h-screen transition-all duration-200">
+    @if (
+    auth()->user()->profile &&
+    auth()->user()->profile->nama_perusahaan !== null &&
+    auth()->user()->profile->deskripsi !== null &&
+    auth()->user()->profile->alamat !== null &&
+    auth()->user()->profile->telpon !== null &&
+    auth()->user()->profile->jumlah_peserta !== null &&
+    auth()->user()->profile->photo_perusahaan !== null
+    )
+    @else
+    <div class="mx-6 bg-red-100 border border-red-400 text-red-700 px-4 py-3 my-5 rounded relative" role="alert">
+        <span class="font-bold block sm:inline">Lengkapi Profil Perusahaan Anda Terlebih Dahulu, Untuk Dapat Menjalin Kerja Sama</span>
+    </div>
+    @endif
     <nav class="absolute z-20 flex flex-wrap items-center justify-between w-full px-6 py-2 text-white transition-all shadow-none duration-250 ease-soft-in lg:flex-nowrap lg:justify-start" navbar-profile navbar-scroll="true">
         <div class="flex items-center justify-between w-full px-6 py-1 mx-auto flex-wrap-inherit">
             <nav>
-                <!-- breadcrumb -->
                 <ol class="flex flex-wrap pt-1 pl-2 pr-4 mr-12 bg-transparent rounded-lg sm:mr-16">
                     <li class="leading-normal text-sm">
                         <a class="opacity-50" href="javascript:;">Pages</a>
@@ -101,9 +114,10 @@
                         @if($user->profile && !empty($user->profile->photo_account))
                         <img src="{{ asset('storage/' . $user->profile->photo_account) }}" alt="Foto Profil" class="h-18.5 w-18.5 rounded-xl object-cover">
                         @else
-                        <img src="../assets/img/bruce-mars.jpg" alt="profile_image" class="w-full shadow-soft-sm rounded-xl" />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#000000" class="w-full shadow-soft-sm rounded-xl">
+                            <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
+                        </svg>
                         @endif
-
                     </div>
                 </div>
                 <div class="flex-none w-auto max-w-full px-3 my-auto">
@@ -225,7 +239,7 @@
                     <div class="flex justify-end p-8 md:justify-center">
                         <div class="h-1">
                             <a href="/chat">
-                                <button class="text-white py-2 px-4 uppercase rounded bg-gray-700 hover:bg-gray-800 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5"> Lihat Pesan</button>
+                                <button class="text-white py-2 px-4 uppercase rounded bg-color-system shadow hover:shadow-lg font-bold transition transform hover:-translate-y-0.5"> Lihat Pesan</button>
                             </a>
                         </div>
                     </div>

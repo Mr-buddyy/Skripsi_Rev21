@@ -84,7 +84,6 @@
     <!-- deskripsi -->
     <p class="text-gray-600 mt-6">{{$partnership->deskripsi}}</p>
     <!-- end deskripsi -->
-    @csrf
     <div class=" mt-8 grid lg:grid-cols-2 gap-4">
         @if(Auth::check())
         <!-- nama partnership -->
@@ -108,10 +107,8 @@
             <label for="brithday" class="text-label-form">Deskripsi</label>
             <p class="py-1 text-gray-700 w-full">{{ $partnership->deskripsi ?? '-' }}</p>
         </div>
-
         @endif
     </div>
-    <!-- </form> -->
 </div>
 </div>
 @endsection

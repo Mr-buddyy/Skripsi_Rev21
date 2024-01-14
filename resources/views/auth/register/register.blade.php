@@ -42,7 +42,7 @@
                     <h2 class="text-3xl font-bold leading-tight text-black sm:text-4xl  pt-5 sm:pt-11 lg:pt-19">Buat Akun</h2>
                     <p class="mt-2 text-base text-gray-600">Sudah mempunyai akun? <a href="/login" title="" class="font-medium text-blue-600 transition-all duration-200 hover:text-blue-700 hover:underline focus:text-blue-700">Masuk</a></p>
 
-                    <form action="{{secure_url('register')}}" method="post" class="mt-8">
+                    <form action="{{route('register')}}" method="post" class="mt-8">
                         @csrf
                         @session('error')
                         <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 my-5 rounded relative" role="alert">
@@ -129,7 +129,7 @@
 
             <div class="flex items-center justify-center px-4 py-10 sm:py-16 lg:py-24 bg-gray-50 sm:px-6 lg:px-8">
                 <div>
-                    <img class="w-full mx-auto" src="https://cdn.rareblocks.xyz/collection/celebration/images/signup/1/cards.png" alt="" />
+                    <!-- <img class="w-full mx-auto" src="https://cdn.rareblocks.xyz/collection/celebration/images/signup/1/cards.png" alt="" />
 
                     <div class="w-full max-w-md mx-auto xl:max-w-xl">
                         <h3 class="text-2xl font-bold text-center text-black">Design your own card</h3>
@@ -142,7 +142,7 @@
 
                             <div class="bg-gray-200 rounded-full w-12 h-1.5"></div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

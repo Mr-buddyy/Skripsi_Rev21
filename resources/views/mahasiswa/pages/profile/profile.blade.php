@@ -69,8 +69,8 @@
 </script>
 @endif
 
-<div class="ease-soft-in-out max-w-[1240px] mx-auto relative transition-all duration-200 ">
-    <nav class="absolute z-20 flex flex-wrap items-center justify-between w-full px-6 py-2  transition-all shadow-none duration-250 ease-soft-in lg:flex-nowrap lg:justify-start" navbar-profile navbar-scroll="true">
+<div class="py-28 ease-soft-in-out max-w-[1240px] mx-auto relative transition-all duration-200 ">
+    <nav class="absolute z-20 flex flex-wrap items-center justify-between w-full px-6 py-10  transition-all shadow-none duration-250 ease-soft-in lg:flex-nowrap lg:justify-start" navbar-profile navbar-scroll="true">
         <div class="flex items-center justify-between w-full px-6 py-1 mx-auto flex-wrap-inherit">
             <nav>
                 <!-- breadcrumb -->

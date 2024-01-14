@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="{{ secure_asset('build/assets/app-00e554d1.css') }}">
+    @vite('resources/css/app.css')
     <link rel="apple-touch-icon" sizes="76x76" href="./assets/img/apple-icon.png" />
     <link rel="icon" type="image/png" href="./assets/img/favicon.png" />
     <title>Soft UI Dashboard Tailwind</title>
@@ -23,10 +23,6 @@
     <!-- Nepcha is a easy-to-use web analytics. No cookies and fully compliant with GDPR, CCPA and PECR. -->
     <script defer data-site="YOUR_DOMAIN_HERE" src="https://api.nepcha.com/js/nepcha-analytics.js"></script>
 </head>
-
-
-
-
 
 <body>
 
@@ -143,7 +139,7 @@
                             <span class="font-bold block sm:inline">{{ $errors->first('fail') }}</span>
                         </div>
                         @endif
-                        <form action="{{secure_url('login')}}" method="post" class="mt-8">
+                        <form action="{{route('login')}}" method="post" class="mt-8">
                             @csrf
                             <div class="space-y-5">
                                 <div>
